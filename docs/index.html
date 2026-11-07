@@ -99,6 +99,10 @@
         <a href="#features" class="hover:text-brand-600 transition-colors">Features</a>
         <a href="#tiering" class="hover:text-brand-600 transition-colors">Storage Tiering</a>
         <a href="#profiles" class="hover:text-brand-600 transition-colors">Cloud Profiles</a>
+        <a href="#upcoming-edge" class="hover:text-brand-600 transition-colors flex items-center space-x-1.5">
+          <span>Edge Device</span>
+          <span class="text-[9px] font-extrabold uppercase bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200">Soon</span>
+        </a>
         <a href="#faq" class="hover:text-brand-600 transition-colors">FAQ</a>
       </nav>
 
@@ -142,8 +146,14 @@
         </div>
 
         <div>
-          <h2 class="text-xs uppercase font-extrabold text-slate-500 tracking-wider mb-2">Reference</h2>
+          <h2 class="text-xs uppercase font-extrabold text-slate-500 tracking-wider mb-2">Roadmap & Reference</h2>
           <ul class="space-y-1 text-sm font-medium">
+            <li>
+              <a href="#upcoming-edge" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-amber-50 hover:text-amber-800 transition">
+                <span>Edge Sync Device</span>
+                <span class="text-[9px] font-extrabold uppercase bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200">Soon</span>
+              </a>
+            </li>
             <li><a href="#faq" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">FAQ & Troubleshooting</a></li>
             <li><a href="#license" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">License & Community</a></li>
           </ul>
@@ -640,6 +650,74 @@
             <li><strong>Zero Resource Bloat:</strong> Lightweight Flutter frontend consuming minimal RAM, backed by a native Rust daemon optimized with fat LTO and memory-bounded streaming.</li>
           </ul>
         </article>
+      </section>
+
+      <!-- Section: Upcoming Feature: Edge-to-Cloud Sync Device -->
+      <section id="upcoming-edge" class="space-y-6" aria-labelledby="upcoming-edge-title">
+        <div class="border-b border-slate-200 pb-3">
+          <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold mb-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600" aria-hidden="true"></i>
+            <span>Upcoming Roadmap Preview</span>
+          </div>
+          <h2 id="upcoming-edge-title" class="text-2xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="hard-drive" class="w-6 h-6 text-amber-600" aria-hidden="true"></i>
+            <span>Edge-to-Cloud Sync Device Companion</span>
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">Expanding unicSync desktop control to portable edge hardware and field media hubs.</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-amber-50/40 via-white to-slate-50 p-8 rounded-3xl border border-amber-200/70 shadow-sm space-y-6">
+          <div class="space-y-3">
+            <h3 class="text-lg font-bold text-slate-900 flex items-center space-x-2">
+              <span>What is the Edge-to-Cloud Sync Device?</span>
+            </h3>
+            <p class="text-sm text-slate-700 leading-relaxed font-normal">
+              While <strong>unicSync</strong> currently turns your local PC folders into an infinite cloud drive, an upcoming release expands desktop orchestration to physical <strong>Edge-to-Cloud Sync Devices</strong> (portable USB cloud pendrives, vehicle/dashcam gateways, and field media hubs running the embedded Rust <code>rSync</code> engine).
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+              <div class="flex items-center space-x-2 text-amber-700 font-bold text-sm">
+                <i data-lucide="usb" class="w-4 h-4" aria-hidden="true"></i>
+                <span>Plug &amp; Sync Auto-Detection</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                Seamlessly pair companion edge hardware over USB, local Wi-Fi, or Bluetooth Low Energy (BLE). unicSync auto-discovers connected edge devices and surfaces their sync state instantly.
+              </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+              <div class="flex items-center space-x-2 text-brand-700 font-bold text-sm">
+                <i data-lucide="upload-cloud" class="w-4 h-4" aria-hidden="true"></i>
+                <span>Zero-Touch Field Offloading</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                Automatically ingest captured media (dashcam videos, drone captures, field sensor dumps) from portable storage and stream them directly into your configured cloud buckets (AWS S3, R2, GDrive, WebDAV).
+              </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+              <div class="flex items-center space-x-2 text-emerald-700 font-bold text-sm">
+                <i data-lucide="shield-check" class="w-4 h-4" aria-hidden="true"></i>
+                <span>Shared Zero-Knowledge Vault</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                Distribute your client-side AES-256-GCM encryption passphrases and cloud credentials securely to your edge hardware companion directly from the unicSync desktop vault.
+              </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-2">
+              <div class="flex items-center space-x-2 text-indigo-700 font-bold text-sm">
+                <i data-lucide="activity" class="w-4 h-4" aria-hidden="true"></i>
+                <span>Hardware Telemetry &amp; Flash Health</span>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+                Monitor companion battery levels, flash memory endurance, network signal, and active transfer queues directly alongside your desktop sync tasks from one centralized control plane.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- Section: FAQ & Troubleshooting -->

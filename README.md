@@ -29,6 +29,17 @@ It provides an intuitive, high-performance visual dashboard that turns any local
 
 ---
 
+## 🔮 Upcoming Feature: Edge-to-Cloud Sync Device Support
+
+While `unicSync` currently serves as the standalone desktop control center for PC-to-cloud synchronization, an upcoming release introduces native companion support for the **Edge-to-Cloud Sync Device** (portable cloud pendrives, vehicle/dashcam gateways, and field media hubs powered by the embedded `rSync` engine):
+
+* **🔌 Plug-and-Sync Companion Discovery**: Auto-detects connected edge hardware devices over USB, Wi-Fi, or Bluetooth Low Energy (BLE).
+* **🚀 Zero-Touch Field Offloading**: Ingest high-volume field captures (video footage, sensor logs, photography) from edge storage and stream them directly to your cloud buckets (AWS S3, Cloudflare R2, Google Drive, WebDAV) with crash-resilient multipart chunking.
+* **🔐 Shared Zero-Knowledge Vault**: Securely provision client-side AES-256-GCM encryption keys and cloud credentials from your desktop vault to edge hardware without exposing plaintext secrets.
+* **📊 Edge Telemetry & Diagnostics**: Monitor device storage health, flash wear, battery level, and upload queues directly inside your unicSync desktop dashboard.
+
+---
+
 ## 🏛️ System Architecture
 
 `unicSync` acts as a pure visual control plane, communicating with the local Rust `sync-agent` backend over HTTP / WebSockets:
