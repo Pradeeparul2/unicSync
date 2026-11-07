@@ -108,23 +108,5 @@ unicSync/
 
 ---
 
-## 🔗 REST API Endpoints Monitored
-
-`unicSync` connects to the following endpoints exposed by `sync-agent`:
-
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/status` | Current sync queue counts, active uploads, bandwidth |
-| `GET` | `/api/files` | Tracked files, storage tiers, sizes, and timestamps |
-| `POST` | `/api/evict` | Evict local payload to free physical disk space |
-| `POST` | `/api/hydrate` | Download remote cloud file back to local storage |
-| `POST` | `/api/cloud/import`| Scan cloud bucket and register remote objects |
-| `POST` | `/api/restore/all` | Download all cloud files back onto physical drive |
-| `GET` | `/api/profiles` | List configured cloud storage destination profiles |
-| `POST` | `/api/profiles/active` | Switch active cloud destination |
-| `POST` | `/api/settings/pin` | Update or verify device PIN protection |
-
----
-
 ## 📄 License
 Licensed under Apache 2.0. Built with ❤️ by the rSync team.
