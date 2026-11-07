@@ -45,3 +45,5 @@ app.*.map.json
 linux/flutter/ephemeral/
 windows/flutter/ephemeral/
 macos/Flutter/ephemeral/
+
+assets/images/
