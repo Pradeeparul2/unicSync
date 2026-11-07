@@ -1,5 +1,5 @@
 name: unic_sync
-description: "Cross-platform Flutter companion application for the rSync edge engine and autonomous USB-C smart drive."
+description: "Standalone desktop cloud sync application for Windows and Linux powered by the rSync engine."
 publish_to: "none"
 version: 0.1.0+1
 

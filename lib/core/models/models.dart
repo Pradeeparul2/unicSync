@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-/// Storage tier for files in the Infinite USB Drive architecture.
+/// Storage tier for files in the storage tiering architecture.
 enum StorageTier {
   local,
   synced,

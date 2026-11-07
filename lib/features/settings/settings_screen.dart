@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/api/sync_api_client.dart';
@@ -65,7 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           Text('Settings & Device Diagnostics', style: GoogleFonts.outfit(fontSize: 26, fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),
-          Text('Configure deletion behavior, security PIN, and inspect hardware status', style: TextStyle(color: Colors.grey.shade400, fontSize: 13)),
+          Text('Configure deletion behavior, security PIN, and inspect engine runtime status', style: TextStyle(color: Colors.grey.shade400, fontSize: 13)),
           const SizedBox(height: 24),
 
           // Engine Daemon Background Service Status
@@ -269,22 +270,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           const SizedBox(height: 20),
 
-          // Hardware & Engine Diagnostics
+          // System & Engine Diagnostics
           _buildCard(
-            title: 'Engine & Hardware Diagnostics',
-            subtitle: 'Hardware health and atomic crash-consistency state',
+            title: 'System & Engine Diagnostics',
+            subtitle: 'Desktop engine runtime and atomic crash-consistency state',
             icon: Icons.memory,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  _buildDiagRow('Engine Version', 'rSync v0.1.0-mvp (Rust 2021)'),
+                  _buildDiagRow('Engine Version', 'rSync v0.1.0 (Rust 2021)'),
                   const Divider(color: Color(0xFF334155)),
-                  _buildDiagRow('Storage Architecture', 'Rockchip RV1103 + 32GB eMMC 5.1 (BGA153)'),
+                  _buildDiagRow('Host Platform', Platform.isWindows ? 'Windows Desktop (x86_64)' : 'Linux Desktop (x86_64)'),
                   const Divider(color: Color(0xFF334155)),
-                  _buildDiagRow('Host Connection Interface', 'USB-C 2.0 High-Speed (480 Mbps) via CDC-NCM Virtual Ethernet'),
+                  _buildDiagRow('Local Communication', 'REST / WebSocket on 127.0.0.1:8484'),
                   const Divider(color: Color(0xFF334155)),
-                  _buildDiagRow('Crash Protection', 'Active (Supercap Power-Cut Flush + SQLite WAL atomicity)'),
+                  _buildDiagRow('Crash Protection', 'Active (SQLite WAL atomicity + transactional chunking)'),
                   const Divider(color: Color(0xFF334155)),
                   _buildDiagRow('Zero-Knowledge Encryption', 'AES-256-GCM + PBKDF2-HMAC-SHA256 Ready'),
                 ],

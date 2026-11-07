@@ -1,43 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>unicSync — User Guide & Documentation</title>
-  <meta name="description" content="The official cross-platform companion application for the rSync Rust Edge Engine and Autonomous USB-C Smart Drive.">
+  <title>unicSync — Standalone Desktop Cloud Sync App (Windows & Linux)</title>
+  <meta name="description" content="The standalone desktop cloud sync application for Windows and Linux, powered by the crash-resilient rSync engine.">
 
-  <!-- Favicon & Fonts -->
+  <!-- Favicon & Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
           },
           colors: {
             brand: {
               50: '#F0F9FF',
               100: '#E0F2FE',
-              400: '#38BDF8',
-              500: '#0EA5E9',
+              200: '#BAE6FD',
               600: '#0284C7',
+              700: '#0369A1',
+              800: '#075985',
+              900: '#0C4A6E',
             },
             accent: {
-              400: '#818CF8',
-              500: '#6366F1',
-            },
-            slate: {
-              850: '#151F32',
-              900: '#0F172A',
-              950: '#080D1A',
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              600: '#4F46E5',
+              700: '#4338CA',
+              800: '#3730A3',
             }
           }
         }
@@ -49,61 +48,66 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    /* Custom Scrollbar */
+    /* WCAG 2.1 Focus Rings */
+    *:focus-visible {
+      outline: 2px solid #0284C7;
+      outline-offset: 2px;
+    }
+    /* Clean Custom Scrollbar for Light Theme */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: #0F172A;
+      background: #F1F5F9;
     }
     ::-webkit-scrollbar-thumb {
-      background: #334155;
+      background: #94A3B8;
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-    .glass-panel {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .glow-cyan {
-      box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.3);
+      background: #64748B;
     }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans selection:bg-brand-500 selection:text-white antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-brand-100 selection:text-brand-900">
+
+  <!-- Accessibility Skip Link -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-brand-700 focus:font-bold focus:shadow-lg focus:rounded-md focus:border focus:border-brand-600">
+    Skip to main content
+  </a>
 
   <!-- Top Navigation Bar -->
-  <header class="sticky top-0 z-50 glass-panel border-b border-slate-800">
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm" role="banner">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-accent-500 flex items-center justify-center shadow-lg shadow-brand-500/20">
-          <i data-lucide="refresh-cw" class="w-5 h-5 text-white animate-spin-slow"></i>
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-accent-600 flex items-center justify-center shadow-md shadow-brand-600/20 text-white">
+          <i data-lucide="refresh-cw" class="w-5 h-5 animate-spin-slow" aria-hidden="true"></i>
         </div>
         <div>
-          <span class="text-xl font-bold tracking-tight text-white">unic<span class="text-brand-400">Sync</span></span>
-          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-400 border border-brand-500/30">User Guide</span>
+          <span class="text-xl font-extrabold tracking-tight text-slate-900">unic<span class="text-brand-600">Sync</span></span>
+          <span class="ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-brand-100 text-brand-800 border border-brand-200">
+            Windows & Linux Desktop
+          </span>
         </div>
       </div>
 
-      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
-        <a href="#about" class="hover:text-brand-400 transition-colors">What is unicSync?</a>
-        <a href="#quickstart" class="hover:text-brand-400 transition-colors">Quickstart</a>
-        <a href="#features" class="hover:text-brand-400 transition-colors">Features</a>
-        <a href="#tiering" class="hover:text-brand-400 transition-colors">Infinite Tiering</a>
-        <a href="#profiles" class="hover:text-brand-400 transition-colors">Cloud Profiles</a>
-        <a href="#faq" class="hover:text-brand-400 transition-colors">FAQ</a>
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-700" aria-label="Main Navigation">
+        <a href="#about" class="hover:text-brand-600 transition-colors">About</a>
+        <a href="#quickstart" class="hover:text-brand-600 transition-colors">Quickstart</a>
+        <a href="#features" class="hover:text-brand-600 transition-colors">Features</a>
+        <a href="#tiering" class="hover:text-brand-600 transition-colors">Storage Tiering</a>
+        <a href="#profiles" class="hover:text-brand-600 transition-colors">Cloud Profiles</a>
+        <a href="#faq" class="hover:text-brand-600 transition-colors">FAQ</a>
       </nav>
 
       <div class="flex items-center space-x-3">
-        <a href="https://github.com/example/unicSync" target="_blank" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium flex items-center space-x-1.5 border border-slate-700 transition">
-          <i data-lucide="github" class="w-4 h-4"></i>
+        <a href="https://github.com/example/unicSync" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold flex items-center space-x-1.5 border border-slate-300 transition" aria-label="View on GitHub">
+          <i data-lucide="github" class="w-4 h-4" aria-hidden="true"></i>
           <span>GitHub</span>
         </a>
-        <a href="#quickstart" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-brand-500 to-accent-500 hover:from-brand-600 hover:to-accent-600 text-white text-xs font-semibold shadow-md shadow-brand-500/25 transition">
+        <a href="#quickstart" class="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-md shadow-brand-600/20 transition">
           Get Started
         </a>
       </div>
@@ -113,142 +117,140 @@
   <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex gap-8">
     
     <!-- Sidebar Navigation (Desktop) -->
-    <aside class="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
-      <div class="glass-panel p-4 rounded-2xl border border-slate-800 space-y-6">
+    <aside class="hidden lg:block w-64 shrink-0 sticky top-24 self-start" aria-label="Table of Contents">
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-6">
         <div>
-          <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider mb-2">Getting Started</h4>
-          <ul class="space-y-1 text-sm">
-            <li><a href="#about" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">Overview</a></li>
-            <li><a href="#architecture" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">How It Works</a></li>
-            <li><a href="#quickstart" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">First-Time Setup</a></li>
+          <h2 class="text-xs uppercase font-extrabold text-slate-500 tracking-wider mb-2">Getting Started</h2>
+          <ul class="space-y-1 text-sm font-medium">
+            <li><a href="#about" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">What is unicSync?</a></li>
+            <li><a href="#architecture" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">System Architecture</a></li>
+            <li><a href="#quickstart" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">Quickstart Guide</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider mb-2">Core Features</h4>
-          <ul class="space-y-1 text-sm">
-            <li><a href="#feature-dashboard" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">1. Live Dashboard</a></li>
-            <li><a href="#feature-tiering" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">2. Infinite Storage Tiering</a></li>
-            <li><a href="#feature-profiles" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">3. Multi-Cloud Setup</a></li>
-            <li><a href="#feature-security" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">4. Security & PIN</a></li>
-            <li><a href="#feature-deletion" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">5. Deletion Policies</a></li>
-            <li><a href="#feature-logs" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">6. Real-Time Logs</a></li>
-            <li><a href="#feature-hardware" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">7. Smart Drive Hardware</a></li>
+          <h2 class="text-xs uppercase font-extrabold text-slate-500 tracking-wider mb-2">Core Features</h2>
+          <ul class="space-y-1 text-sm font-medium">
+            <li><a href="#feature-dashboard" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">1. Live Dashboard</a></li>
+            <li><a href="#tiering" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">2. Storage Tiering (LRU)</a></li>
+            <li><a href="#profiles" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">3. Multi-Cloud Setup</a></li>
+            <li><a href="#feature-security" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">4. Security & PIN</a></li>
+            <li><a href="#feature-deletion" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">5. Deletion Policies</a></li>
+            <li><a href="#feature-logs" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">6. Real-Time Logs</a></li>
+            <li><a href="#feature-desktop" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">7. Desktop Integration</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-xs uppercase font-bold text-slate-400 tracking-wider mb-2">Reference</h4>
-          <ul class="space-y-1 text-sm">
-            <li><a href="#faq" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">FAQ & Troubleshooting</a></li>
-            <li><a href="#license" class="block px-2.5 py-1.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-brand-400 transition">License & Community</a></li>
+          <h2 class="text-xs uppercase font-extrabold text-slate-500 tracking-wider mb-2">Reference</h2>
+          <ul class="space-y-1 text-sm font-medium">
+            <li><a href="#faq" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">FAQ & Troubleshooting</a></li>
+            <li><a href="#license" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">License & Community</a></li>
           </ul>
         </div>
       </div>
     </aside>
 
     <!-- Main Content Area -->
-    <main class="flex-1 min-w-0 space-y-16">
+    <main id="main-content" class="flex-1 min-w-0 space-y-14" role="main">
 
       <!-- Hero Section -->
-      <section class="relative rounded-3xl p-8 sm:p-12 glass-panel border border-slate-800 overflow-hidden glow-cyan">
-        <div class="relative z-10 max-w-3xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-500/10 border border-brand-500/20 text-brand-400 text-xs font-semibold mb-4">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span>Cross-Platform Flutter Companion for rSync</span>
+      <section class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm relative overflow-hidden" aria-labelledby="hero-title">
+        <div class="max-w-3xl space-y-5">
+          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-800 text-xs font-bold">
+            <i data-lucide="monitor" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
+            <span>Standalone Desktop Cloud Sync for Windows & Linux</span>
           </div>
-          <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
-            The Autonomous Control Hub for <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-accent-400">Infinite Cloud Storage</span>.
+
+          <h1 id="hero-title" class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+            The Standalone Desktop Hub for <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-accent-600">Universal Cloud Sync</span>.
           </h1>
-          <p class="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
-            <strong>unicSync</strong> transforms standard USB flash drives, dashcam SD cards, and desktop folders into an <strong>Infinite Cloud Drive</strong>. Powered by the crash-resilient <strong>Rust `sync-agent`</strong> engine, unicSync delivers real-time bandwidth meters, multi-cloud destination wizards, and zero-knowledge encrypted offload to AWS S3, Google Drive, or WebDAV.
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            <strong>unicSync</strong> is a native desktop application for <strong>Windows</strong> and <strong>Linux</strong> that turns any local folder on your computer into an <strong>Infinite Cloud Drive</strong>. Powered by the crash-resilient <strong>Rust `sync-agent`</strong> background daemon, unicSync delivers real-time bandwidth meters, multi-cloud destination wizards, and zero-knowledge encrypted offload to AWS S3, Google Drive, or WebDAV.
           </p>
 
-          <div class="mt-8 flex flex-wrap gap-4">
-            <a href="#quickstart" class="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-500 to-accent-500 hover:from-brand-600 hover:to-accent-600 text-white font-semibold text-sm shadow-lg shadow-brand-500/30 flex items-center space-x-2 transition">
-              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+          <div class="pt-3 flex flex-wrap gap-4">
+            <a href="#quickstart" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-sm shadow-md shadow-brand-600/20 flex items-center space-x-2 transition">
+              <i data-lucide="play" class="w-4 h-4 fill-current" aria-hidden="true"></i>
               <span>Quickstart Guide</span>
             </a>
-            <a href="#features" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm border border-slate-700 flex items-center space-x-2 transition">
-              <i data-lucide="book-open" class="w-4 h-4"></i>
+            <a href="#features" class="px-6 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-300 flex items-center space-x-2 transition">
+              <i data-lucide="book-open" class="w-4 h-4 text-slate-600" aria-hidden="true"></i>
               <span>Explore Features</span>
             </a>
           </div>
         </div>
-
-        <!-- Decorative background glow -->
-        <div class="absolute -right-20 -top-20 w-80 h-80 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -right-10 -bottom-20 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl pointer-events-none"></div>
       </section>
 
       <!-- Section: What is unicSync? -->
-      <section id="about" class="space-y-6">
-        <div class="border-b border-slate-800 pb-4">
-          <h2 class="text-2xl font-bold text-white flex items-center space-x-2">
-            <i data-lucide="info" class="w-6 h-6 text-brand-400"></i>
+      <section id="about" class="space-y-6" aria-labelledby="about-title">
+        <div class="border-b border-slate-200 pb-3">
+          <h2 id="about-title" class="text-2xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="info" class="w-6 h-6 text-brand-600" aria-hidden="true"></i>
             <span>What is unicSync?</span>
           </h2>
-          <p class="text-slate-400 text-sm mt-1">Understanding the companion architecture and why it exists.</p>
+          <p class="text-slate-600 text-sm mt-1">A standalone desktop architecture built for privacy, performance, and crash immunity.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
-            <div class="w-10 h-10 rounded-xl bg-red-500/10 text-red-400 flex items-center justify-center">
-              <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-700 flex items-center justify-center border border-brand-200 font-bold">
+              <i data-lucide="monitor" class="w-5 h-5" aria-hidden="true"></i>
             </div>
-            <h3 class="text-lg font-bold text-white">The Edge Problem</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
-              Edge devices (dashcams, thumb drives, creator cameras) suffer from severe flash capacity limits, sudden power cuts, and network disconnects that corrupt traditional file uploads.
+            <h3 class="text-lg font-bold text-slate-900">Standalone Desktop App</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Native application for <strong>Windows</strong> and <strong>Linux</strong> with an identical UI look and feel, dark slate aesthetic, and consistent user flows across platforms.
             </p>
           </div>
 
-          <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
-            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
-              <i data-lucide="cpu" class="w-5 h-5"></i>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-accent-50 text-accent-700 flex items-center justify-center border border-accent-200 font-bold">
+              <i data-lucide="cpu" class="w-5 h-5" aria-hidden="true"></i>
             </div>
-            <h3 class="text-lg font-bold text-white">The Rust Engine</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
-              <strong>`rSync` (`sync-agent`)</strong> runs quietly in the background, chunking files into bounded 5 MB blocks, calculating SHA-256 hashes, and persisting progress in atomic SQLite WAL transactions.
+            <h3 class="text-lg font-bold text-slate-900">Rust Engine Core</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Bundles the compiled <strong>Rust `sync-agent`</strong> daemon (PE32+ on Windows, ELF on Linux) for 5 MB chunk streaming, atomic SQLite WAL persistence, and crash recovery.
             </p>
           </div>
 
-          <div class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
-            <div class="w-10 h-10 rounded-xl bg-accent-500/10 text-accent-400 flex items-center justify-center">
-              <i data-lucide="layout" class="w-5 h-5"></i>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center border border-emerald-200 font-bold">
+              <i data-lucide="cloud" class="w-5 h-5" aria-hidden="true"></i>
             </div>
-            <h3 class="text-lg font-bold text-white">The Flutter Companion</h3>
-            <p class="text-sm text-slate-300 leading-relaxed">
-              <strong>unicSync</strong> provides the unified presentation and control interface on Linux, Windows, macOS, Android, and iOS. Zero business logic duplication—pure visual clarity.
+            <h3 class="text-lg font-bold text-slate-900">Universal Cloud Freedom</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Supports any cloud destination (AWS S3, Cloudflare R2, MinIO, Nextcloud WebDAV, Google Drive) with zero vendor lock-in.
             </p>
           </div>
         </div>
 
         <!-- Architecture Flowchart -->
-        <div id="architecture" class="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-400 flex items-center space-x-2">
-            <i data-lucide="git-merge" class="w-4 h-4 text-brand-400"></i>
-            <span>Communication & Control Flow</span>
+        <div id="architecture" class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <h3 class="text-xs uppercase font-extrabold tracking-wider text-slate-500 flex items-center space-x-2">
+            <i data-lucide="git-merge" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
+            <span>Standalone Architecture & Data Flow</span>
           </h3>
 
-          <div class="bg-slate-950 p-6 rounded-xl border border-slate-850 font-mono text-xs overflow-x-auto text-slate-300 leading-loose">
-<pre class="text-slate-300">
+          <div class="bg-slate-900 text-slate-100 p-6 rounded-xl border border-slate-800 font-mono text-xs overflow-x-auto leading-relaxed">
+<pre class="text-slate-100">
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    <span class="text-brand-400 font-bold">unicSync Companion App (Flutter 3.x)</span>                     │
-│  [Live Transfer Gauges]  │  [Infinite File Tiering]  │  [Cloud Profile Wizard] │
+│             <span class="text-brand-300 font-bold">unicSync Desktop Application (Windows & Linux)</span>                  │
+│   • Live Bandwidth Gauges   • File Tiering Browser   • Cloud Profile Wizard │
 └──────────────────────────────────────┬──────────────────────────────────────┘
-                                       │ High-Performance REST & WebSocket API
-                                       │ (http://127.0.0.1:8484 or 192.168.7.2:8080)
+                                       │ Local REST & WebSocket API
+                                       │ (http://127.0.0.1:8484)
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    <span class="text-accent-400 font-bold">rSync Engine Daemon (Rust sync-agent)</span>                    │
-│  • Bounded 5MB Chunker (64KB buffer)   • Atomic SQLite WAL State Store       │
-│  • Zero-Knowledge AES-256-GCM Crypto   • Bounded 4-Worker Async Pool         │
-│  • Real-time Notify File Watcher       • Jittered Exponential Backoff Retry  │
+│             <span class="text-indigo-300 font-bold">rSync Engine Background Daemon (sync-agent / .exe)</span>              │
+│   • Bounded 5MB Chunker (64KB buffer)   • Atomic SQLite WAL State Store     │
+│   • Zero-Knowledge AES-256-GCM Crypto   • 4-Worker Async Upload Pool        │
+│   • Real-Time Filesystem Watcher        • Jittered Exponential Backoff      │
 └──────────────────────────────────────┬──────────────────────────────────────┘
-                                       │ Universal CloudBackend Trait
+                                       │ Universal Cloud Storage Trait
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                        <span class="text-emerald-400 font-bold">Any Cloud Storage Target</span>                             │
+│                        <span class="text-emerald-300 font-bold">Target Cloud Storage Destination</span>                     │
 │    AWS S3  │  Cloudflare R2  │  MinIO  │  Nextcloud (WebDAV)  │  Google Drive   │
 └─────────────────────────────────────────────────────────────────────────────┘
 </pre>
@@ -257,64 +259,64 @@
       </section>
 
       <!-- Section: Quickstart Walkthrough -->
-      <section id="quickstart" class="space-y-6">
-        <div class="border-b border-slate-800 pb-4">
-          <h2 class="text-2xl font-bold text-white flex items-center space-x-2">
-            <i data-lucide="rocket" class="w-6 h-6 text-emerald-400"></i>
+      <section id="quickstart" class="space-y-6" aria-labelledby="quickstart-title">
+        <div class="border-b border-slate-200 pb-3">
+          <h2 id="quickstart-title" class="text-2xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="rocket" class="w-6 h-6 text-brand-600" aria-hidden="true"></i>
             <span>Quickstart Walkthrough</span>
           </h2>
-          <p class="text-slate-400 text-sm mt-1">Get up and running in under three minutes.</p>
+          <p class="text-slate-600 text-sm mt-1">Get up and running on Linux or Windows in under three minutes.</p>
         </div>
 
-        <div class="space-y-6">
+        <div class="space-y-4">
           <!-- Step 1 -->
-          <div class="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start">
-            <div class="w-10 h-10 rounded-full bg-brand-500/20 border border-brand-500/40 text-brand-400 font-bold text-base flex items-center justify-center shrink-0">
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-5 items-start">
+            <div class="w-9 h-9 rounded-full bg-brand-100 border border-brand-300 text-brand-800 font-extrabold text-sm flex items-center justify-center shrink-0">
               1
             </div>
             <div class="space-y-2 flex-1">
-              <h3 class="text-lg font-bold text-white">Build or Launch unicSync</h3>
-              <p class="text-sm text-slate-300">
-                Ensure you have built the companion binaries via the root `Makefile` in `rSync`, then launch unicSync:
+              <h3 class="text-lg font-bold text-slate-900">Build Release Binaries</h3>
+              <p class="text-sm text-slate-600">
+                Run the release build in the `rSync` engine workspace. The Makefile compiles both the Linux (`sync-agent`) and Windows (`sync-agent.exe`) binaries and automatically copies them into `unicSync/assets/bin/`:
               </p>
-              <div class="bg-slate-950 p-4 rounded-xl border border-slate-850 font-mono text-xs text-brand-300 overflow-x-auto">
-                <span class="text-slate-500"># In rSync directory (generates Linux & Windows release daemons):</span><br>
-                make build-release<br><br>
-                <span class="text-slate-500"># In unicSync directory:</span><br>
-                flutter run -d linux   <span class="text-slate-500"># For Linux desktop</span><br>
-                flutter run -d windows <span class="text-slate-500"># For Windows desktop</span>
+              <div class="bg-slate-900 text-slate-100 p-4 rounded-xl border border-slate-800 font-mono text-xs overflow-x-auto leading-relaxed">
+                <span class="text-slate-400"># Inside rSync directory:</span><br>
+                <span class="text-brand-300 font-bold">make build-release</span><br><br>
+                <span class="text-slate-400"># Generated release binaries:</span><br>
+                target/release/sync-agent <span class="text-emerald-400">(Linux ELF, ~5.2 MB)</span><br>
+                target/x86_64-pc-windows-gnu/release/sync-agent.exe <span class="text-emerald-400">(Windows PE32+, ~4.5 MB)</span>
               </div>
             </div>
           </div>
 
           <!-- Step 2 -->
-          <div class="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start">
-            <div class="w-10 h-10 rounded-full bg-accent-500/20 border border-accent-500/40 text-accent-400 font-bold text-base flex items-center justify-center shrink-0">
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-5 items-start">
+            <div class="w-9 h-9 rounded-full bg-accent-100 border border-accent-300 text-accent-800 font-extrabold text-sm flex items-center justify-center shrink-0">
               2
             </div>
             <div class="space-y-2 flex-1">
-              <h3 class="text-lg font-bold text-white">First-Time Setup (Onboarding Wizard)</h3>
-              <p class="text-sm text-slate-300">
-                When you launch unicSync for the first time, the onboarding screen guides you to choose a target watch directory:
+              <h3 class="text-lg font-bold text-slate-900">First-Time Setup (Onboarding Wizard)</h3>
+              <p class="text-sm text-slate-600">
+                On launch, unicSync guides you to select a local folder on your computer to watch and sync:
               </p>
-              <ul class="list-disc list-inside text-sm text-slate-300 space-y-1 pl-2">
-                <li>Default Linux suggested path: <code class="text-brand-300 font-mono text-xs">/home/user/CloudDrive</code></li>
-                <li>Default Windows suggested path: <code class="text-brand-300 font-mono text-xs">C:\Users\username\CloudDrive</code></li>
-                <li>Click <strong>Browse</strong> to select any USB drive or external folder.</li>
-                <li>Click <strong>Initialize & Launch Engine</strong>. The app automatically spawns the background daemon and mounts the directory.</li>
+              <ul class="list-disc list-inside text-sm text-slate-700 space-y-1.5 pl-2 font-medium">
+                <li>Default Linux path: <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-mono text-xs border border-slate-200">/home/user/CloudDrive</code></li>
+                <li>Default Windows path: <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-mono text-xs border border-slate-200">C:\Users\username\CloudDrive</code></li>
+                <li>Click <strong>Browse</strong> to select any existing local folder on your PC.</li>
+                <li>Click <strong>Initialize & Launch Engine</strong>. The app automatically spawns the background daemon and begins monitoring the folder.</li>
               </ul>
             </div>
           </div>
 
           <!-- Step 3 -->
-          <div class="glass-panel p-6 rounded-2xl border border-slate-800 flex flex-col md:flex-row gap-6 items-start">
-            <div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 font-bold text-base flex items-center justify-center shrink-0">
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col md:flex-row gap-5 items-start">
+            <div class="w-9 h-9 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 font-extrabold text-sm flex items-center justify-center shrink-0">
               3
             </div>
             <div class="space-y-2 flex-1">
-              <h3 class="text-lg font-bold text-white">Add Cloud Destination & Sync</h3>
-              <p class="text-sm text-slate-300">
-                Navigate to <strong>Profiles</strong> on the left navigation rail. Click <strong>Add Profile</strong> and enter your AWS S3 bucket credentials or Nextcloud WebDAV credentials. Any file placed into your watch directory will automatically stream to the cloud!
+              <h3 class="text-lg font-bold text-slate-900">Connect Cloud Storage Destination</h3>
+              <p class="text-sm text-slate-600">
+                Open <strong>Profiles</strong> from the navigation rail, click <strong>Add Profile</strong>, and enter your AWS S3 bucket credentials or Nextcloud WebDAV credentials. Any file placed into your watch directory will automatically stream to the cloud!
               </p>
             </div>
           </div>
@@ -322,371 +324,372 @@
       </section>
 
       <!-- Section: Detailed Features Guide -->
-      <section id="features" class="space-y-12">
-        <div class="border-b border-slate-800 pb-4">
-          <h2 class="text-2xl font-bold text-white flex items-center space-x-2">
-            <i data-lucide="layers" class="w-6 h-6 text-brand-400"></i>
-            <span>Detailed Features & User Guide</span>
+      <section id="features" class="space-y-10" aria-labelledby="features-title">
+        <div class="border-b border-slate-200 pb-3">
+          <h2 id="features-title" class="text-2xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="layers" class="w-6 h-6 text-brand-600" aria-hidden="true"></i>
+            <span>Features & User Guide</span>
           </h2>
-          <p class="text-slate-400 text-sm mt-1">A complete walkthrough of every screen and capability in unicSync.</p>
+          <p class="text-slate-600 text-sm mt-1">A comprehensive walkthrough of every screen and capability in unicSync.</p>
         </div>
 
         <!-- Feature 1: Dashboard -->
-        <div id="feature-dashboard" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <article id="feature-dashboard" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-brand-500/10 text-brand-400">
-              <i data-lucide="gauge" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-brand-50 text-brand-700 border border-brand-200">
+              <i data-lucide="gauge" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">1. Real-Time Transfer Dashboard</h3>
-              <p class="text-xs text-slate-400">Live operational telemetry and bounded worker pool monitoring.</p>
+              <h3 class="text-xl font-bold text-slate-900">1. Real-Time Transfer Dashboard</h3>
+              <p class="text-xs text-slate-500 font-medium">Live operational telemetry and bounded worker pool monitoring.</p>
             </div>
           </div>
 
-          <p class="text-sm text-slate-300 leading-relaxed">
-            The Dashboard gives you instant visual oversight over the sync queue. Unlike traditional desktop sync tools that provide vague "Syncing..." spinners, unicSync displays granular telemetry:
+          <p class="text-sm text-slate-600 leading-relaxed">
+            The Dashboard gives you instant visual oversight over the sync queue. Unlike traditional desktop sync tools that provide vague spinners, unicSync displays granular, verified telemetry:
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850">
-              <div class="text-slate-400 text-xs font-semibold uppercase">Total Files</div>
-              <div class="text-2xl font-extrabold text-white mt-1">1,420</div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div class="text-slate-600 text-xs font-bold uppercase tracking-wider">Total Files</div>
+              <div class="text-2xl font-black text-slate-900 mt-1">1,420</div>
               <div class="text-xs text-slate-500 mt-1">Monitored in watch root</div>
             </div>
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850">
-              <div class="text-slate-400 text-xs font-semibold uppercase">Completed</div>
-              <div class="text-2xl font-extrabold text-emerald-400 mt-1">1,418</div>
-              <div class="text-xs text-emerald-500/80 mt-1">SHA-256 cloud verified</div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div class="text-slate-600 text-xs font-bold uppercase tracking-wider">Completed</div>
+              <div class="text-2xl font-black text-emerald-600 mt-1">1,418</div>
+              <div class="text-xs text-slate-500 mt-1">SHA-256 cloud verified</div>
             </div>
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850">
-              <div class="text-slate-400 text-xs font-semibold uppercase">Active Uploads</div>
-              <div class="text-2xl font-extrabold text-brand-400 mt-1">2</div>
-              <div class="text-xs text-brand-400/80 mt-1">4 concurrent chunk streams</div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div class="text-slate-600 text-xs font-bold uppercase tracking-wider">Active Uploads</div>
+              <div class="text-2xl font-black text-brand-600 mt-1">2</div>
+              <div class="text-xs text-slate-500 mt-1">4 concurrent chunk streams</div>
             </div>
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-850">
-              <div class="text-slate-400 text-xs font-semibold uppercase">Current Bandwidth</div>
-              <div class="text-2xl font-extrabold text-accent-400 mt-1">18.4 MB/s</div>
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+              <div class="text-slate-600 text-xs font-bold uppercase tracking-wider">Current Bandwidth</div>
+              <div class="text-2xl font-black text-accent-600 mt-1">18.4 MB/s</div>
               <div class="text-xs text-slate-500 mt-1">Live upload throughput</div>
             </div>
           </div>
 
-          <div class="space-y-3">
-            <h4 class="text-sm font-semibold text-white">Worker Pool Breakdown</h4>
-            <p class="text-xs text-slate-300 leading-relaxed">
-              `rSync` operates a 4-worker upload queue. When large video files (1 GB+) are uploaded, the file is split into 5 MB chunks, and the 4 workers process parts in parallel. If network drops occur, only the interrupted 5 MB chunk is retried.
+          <div class="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h4 class="text-sm font-bold text-slate-900">4-Worker Parallel Chunk Pool</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              `rSync` operates a bounded 4-worker upload queue. When large video files (1 GB+) are uploaded, the file is split into 5 MB chunks, and the 4 workers process parts in parallel. If network drops occur, only the interrupted 5 MB chunk is retried.
             </p>
           </div>
-        </div>
+        </article>
 
-        <!-- Feature 2: Infinite Storage Tiering -->
-        <div id="feature-tiering" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <!-- Feature 2: Storage Tiering -->
+        <article id="tiering" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-accent-500/10 text-accent-400">
-              <i data-lucide="hard-drive" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-accent-50 text-accent-700 border border-accent-200">
+              <i data-lucide="hard-drive" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">2. Infinite Storage Tiering (LRU Cache Manager)</h3>
-              <p class="text-xs text-slate-400">Virtualize 1 TB+ of cloud storage on an 8 GB or 32 GB local drive.</p>
+              <h3 class="text-xl font-bold text-slate-900">2. Storage Tiering (LRU Cache Manager)</h3>
+              <p class="text-xs text-slate-500 font-medium">Virtualize 1 TB+ of cloud storage without exhausting your PC's local disk.</p>
             </div>
           </div>
 
-          <p class="text-sm text-slate-300 leading-relaxed">
+          <p class="text-sm text-slate-600 leading-relaxed">
             The <strong>Files</strong> tab provides an intuitive browser with status badges inspired by OneDrive and iCloud, but fully open-source and universal across any cloud provider:
           </p>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 space-y-2">
-              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-400 text-xs font-bold">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold border border-amber-200">
                 <span>💾 Local (Buffering)</span>
               </div>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                Newly recorded or written file on disk. The payload resides in physical flash and is actively queued for cloud offload.
+              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                Newly written file on local PC disk. The payload resides locally and is actively queued for cloud offload.
               </p>
             </div>
 
-            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 space-y-2">
-              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 text-xs font-bold">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-900 text-xs font-bold border border-emerald-200">
                 <span>✅ Synced (Cached)</span>
               </div>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                File is safely stored in the cloud and also cached locally in physical storage for instant zero-latency access.
+              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                File is safely stored in the cloud and cached locally on your PC for instant zero-latency access.
               </p>
             </div>
 
-            <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 space-y-2">
-              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-400 text-xs font-bold">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
+              <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-sky-100 text-sky-900 text-xs font-bold border border-sky-200">
                 <span>☁️ Cloud Only (Dataless Stub)</span>
               </div>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                The local payload was safely evicted from disk to free up physical space. The file name and metadata remain visible; clicking hydrate downloads it on-demand.
+              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+                The local payload was safely evicted from disk to free up PC drive space. The file name and metadata remain visible; clicking hydrate downloads it on-demand.
               </p>
             </div>
           </div>
 
-          <div class="bg-slate-950 p-5 rounded-2xl border border-slate-850 space-y-3">
-            <h4 class="text-sm font-semibold text-white">Tiering Control Actions</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300">
+          <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
+            <h4 class="text-sm font-bold text-slate-900">Tiering Control Actions</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
               <div class="flex items-start space-x-3">
-                <i data-lucide="trash-2" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                <i data-lucide="trash-2" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" aria-hidden="true"></i>
                 <div>
-                  <strong class="text-white">Free Up Space (Evict):</strong> Clears the local physical bytes while preserving the cloud backup and keeping a dataless stub on disk.
+                  <strong class="text-slate-900">Free Up Space (Evict):</strong> Clears local physical bytes from disk while preserving the cloud backup and keeping a dataless stub on disk.
                 </div>
               </div>
               <div class="flex items-start space-x-3">
-                <i data-lucide="download" class="w-4 h-4 text-brand-400 shrink-0 mt-0.5"></i>
+                <i data-lucide="download" class="w-4 h-4 text-brand-600 shrink-0 mt-0.5" aria-hidden="true"></i>
                 <div>
-                  <strong class="text-white">Download to Device (Hydrate):</strong> Fetches the payload from your S3 or WebDAV bucket and restores it as a cached local file.
+                  <strong class="text-slate-900">Download to Device (Hydrate):</strong> Fetches the payload from your S3 or WebDAV bucket and restores it as a cached local file.
                 </div>
               </div>
               <div class="flex items-start space-x-3">
-                <i data-lucide="cloud" class="w-4 h-4 text-sky-400 shrink-0 mt-0.5"></i>
+                <i data-lucide="cloud" class="w-4 h-4 text-sky-600 shrink-0 mt-0.5" aria-hidden="true"></i>
                 <div>
-                  <strong class="text-white">Discover Cloud Files (Import):</strong> Scans your remote bucket for files uploaded from other computers or devices and indexes them without downloading full payloads.
+                  <strong class="text-slate-900">Discover Cloud Files (Import):</strong> Scans your remote bucket for files uploaded from other computers and indexes them without downloading full payloads.
                 </div>
               </div>
               <div class="flex items-start space-x-3">
-                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5"></i>
+                <i data-lucide="arrow-down-circle" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" aria-hidden="true"></i>
                 <div>
-                  <strong class="text-white">Restore All:</strong> Batch downloads all remote cloud objects back to the physical local drive.
+                  <strong class="text-slate-900">Restore All:</strong> Batch downloads all remote cloud objects back to the local computer disk.
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- Feature 3: Multi-Cloud Profiles -->
-        <div id="feature-profiles" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <article id="profiles" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
-              <i data-lucide="globe" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <i data-lucide="globe" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">3. Multi-Cloud Destination Wizard</h3>
-              <p class="text-xs text-slate-400">Plug-and-play storage backends with no proprietary cloud lock-in.</p>
+              <h3 class="text-xl font-bold text-slate-900">3. Multi-Cloud Destination Wizard</h3>
+              <p class="text-xs text-slate-500 font-medium">Connect to any cloud storage target without editing config files.</p>
             </div>
           </div>
 
-          <p class="text-sm text-slate-300 leading-relaxed">
-            Configure, manage, and toggle between cloud providers directly from the UI without manually formatting config files:
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Configure, manage, and toggle between cloud providers directly from the UI:
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 space-y-2">
-              <div class="font-bold text-brand-400 flex items-center space-x-1.5">
-                <i data-lucide="server" class="w-4 h-4"></i>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="font-bold text-brand-700 flex items-center space-x-1.5">
+                <i data-lucide="server" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
                 <span>AWS S3 / MinIO / R2</span>
               </div>
-              <p class="text-slate-400">
+              <p class="text-slate-600">
                 Custom endpoint URLs, SigV4 authentication, bucket name, access key, secret key, and optional bucket subfolder prefix.
               </p>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 space-y-2">
-              <div class="font-bold text-sky-400 flex items-center space-x-1.5">
-                <i data-lucide="folder-sync" class="w-4 h-4"></i>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="font-bold text-sky-700 flex items-center space-x-1.5">
+                <i data-lucide="folder-sync" class="w-4 h-4 text-sky-600" aria-hidden="true"></i>
                 <span>WebDAV / Nextcloud</span>
               </div>
-              <p class="text-slate-400">
+              <p class="text-slate-600">
                 Nextcloud, ownCloud, or custom WebDAV URLs with standard HTTP Basic Auth or App Passwords.
               </p>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 space-y-2">
-              <div class="font-bold text-amber-400 flex items-center space-x-1.5">
-                <i data-lucide="triangle" class="w-4 h-4"></i>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="font-bold text-amber-700 flex items-center space-x-1.5">
+                <i data-lucide="triangle" class="w-4 h-4 text-amber-600" aria-hidden="true"></i>
                 <span>Google Drive</span>
               </div>
-              <p class="text-slate-400">
+              <p class="text-slate-600">
                 OAuth2 Bearer tokens and target Parent Folder ID utilizing Google Drive v3 Resumable Upload protocol.
               </p>
             </div>
 
-            <div class="p-4 rounded-xl bg-slate-950 border border-slate-850 space-y-2">
-              <div class="font-bold text-purple-400 flex items-center space-x-1.5">
-                <i data-lucide="terminal" class="w-4 h-4"></i>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div class="font-bold text-purple-700 flex items-center space-x-1.5">
+                <i data-lucide="terminal" class="w-4 h-4 text-purple-600" aria-hidden="true"></i>
                 <span>Mock Sandbox</span>
               </div>
-              <p class="text-slate-400">
+              <p class="text-slate-600">
                 In-memory and local mock backend for sandbox verification, offline resilience testing, and QA.
               </p>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- Feature 4: Security & PIN -->
-        <div id="feature-security" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <article id="feature-security" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-purple-500/10 text-purple-400">
-              <i data-lucide="shield-check" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-purple-50 text-purple-700 border border-purple-200">
+              <i data-lucide="shield-check" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">4. Zero-Knowledge Encryption & PIN Protection</h3>
-              <p class="text-xs text-slate-400">Enterprise-grade cryptographic hardening built right into the companion.</p>
+              <h3 class="text-xl font-bold text-slate-900">4. Zero-Knowledge Encryption & PIN Protection</h3>
+              <p class="text-xs text-slate-500 font-medium">Enterprise-grade cryptographic hardening built right into the app.</p>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
-            <div class="space-y-3 bg-slate-950 p-5 rounded-2xl border border-slate-850">
-              <h4 class="font-bold text-white flex items-center space-x-2">
-                <i data-lucide="key" class="w-4 h-4 text-purple-400"></i>
+            <div class="space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <h4 class="font-bold text-slate-900 flex items-center space-x-2">
+                <i data-lucide="key" class="w-4 h-4 text-purple-600" aria-hidden="true"></i>
                 <span>Client-Side AES-256-GCM Encryption</span>
               </h4>
-              <p class="text-xs text-slate-300 leading-relaxed">
+              <p class="text-xs text-slate-600 leading-relaxed">
                 When enabled, every 5 MB chunk is encrypted in RAM prior to network transmission using authenticated AES-256-GCM with keys derived via PBKDF2-HMAC-SHA256. Cloud providers only see opaque ciphertext.
               </p>
             </div>
 
-            <div class="space-y-3 bg-slate-950 p-5 rounded-2xl border border-slate-850">
-              <h4 class="font-bold text-white flex items-center space-x-2">
-                <i data-lucide="lock" class="w-4 h-4 text-brand-400"></i>
-                <span>Device PIN & Brute-Force Lockout</span>
+            <div class="space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <h4 class="font-bold text-slate-900 flex items-center space-x-2">
+                <i data-lucide="lock" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
+                <span>App PIN & Brute-Force Lockout</span>
               </h4>
-              <p class="text-xs text-slate-300 leading-relaxed">
+              <p class="text-xs text-slate-600 leading-relaxed">
                 Protect your dashboard and files from unauthorized local access. Configure a 4-to-8 digit PIN. After 5 consecutive invalid attempts, the dashboard enters an exponential security lockout.
               </p>
             </div>
           </div>
-        </div>
+        </article>
 
         <!-- Feature 5: Deletion Policies -->
-        <div id="feature-deletion" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <article id="feature-deletion" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-rose-500/10 text-rose-400">
-              <i data-lucide="settings" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-rose-50 text-rose-700 border border-rose-200">
+              <i data-lucide="settings" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">5. Deletion Policies Explained</h3>
-              <p class="text-xs text-slate-400">Choose how local file deletions are handled in the cloud.</p>
+              <h3 class="text-xl font-bold text-slate-900">5. Deletion Policies Explained</h3>
+              <p class="text-xs text-slate-500 font-medium">Choose how local file deletions are handled in the cloud.</p>
             </div>
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs border border-slate-800 rounded-xl overflow-hidden">
-              <thead class="bg-slate-950 text-slate-300 uppercase font-semibold">
+            <table class="w-full text-left text-xs border border-slate-300 rounded-xl overflow-hidden shadow-sm" aria-label="Deletion Policies Comparison">
+              <thead class="bg-slate-100 text-slate-900 uppercase font-extrabold border-b border-slate-300">
                 <tr>
-                  <th class="p-3 border-b border-slate-800">Policy Mode</th>
-                  <th class="p-3 border-b border-slate-800">Local Action</th>
-                  <th class="p-3 border-b border-slate-800">Cloud Action</th>
-                  <th class="p-3 border-b border-slate-800">Best Use Case</th>
+                  <th scope="col" class="p-3.5">Policy Mode</th>
+                  <th scope="col" class="p-3.5">Local Action</th>
+                  <th scope="col" class="p-3.5">Cloud Action</th>
+                  <th scope="col" class="p-3.5">Best Use Case</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-slate-800/60 text-slate-300">
-                <tr class="hover:bg-slate-800/30">
-                  <td class="p-3 font-semibold text-emerald-400">Safe Archive (keep_cloud)</td>
-                  <td class="p-3">File deleted locally</td>
-                  <td class="p-3 text-emerald-300">Remote cloud file is KEPT</td>
-                  <td class="p-3 text-slate-400">Default. Dashcam footage & photos offload to free local space.</td>
+              <tbody class="divide-y divide-slate-200 text-slate-700">
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3.5 font-bold text-emerald-700">Safe Archive (keep_cloud)</td>
+                  <td class="p-3.5">File deleted locally</td>
+                  <td class="p-3.5 font-semibold text-emerald-800">Remote cloud file is KEPT</td>
+                  <td class="p-3.5 text-slate-600">Default. Free up PC drive space without losing cloud backups.</td>
                 </tr>
-                <tr class="hover:bg-slate-800/30">
-                  <td class="p-3 font-semibold text-rose-400">Strict Mirror (remove_both)</td>
-                  <td class="p-3">File deleted locally</td>
-                  <td class="p-3 text-rose-300">Remote cloud file is DELETED</td>
-                  <td class="p-3 text-slate-400">Strict 1:1 two-way directory synchronization.</td>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3.5 font-bold text-rose-700">Strict Mirror (remove_both)</td>
+                  <td class="p-3.5">File deleted locally</td>
+                  <td class="p-3.5 font-semibold text-rose-800">Remote cloud file is DELETED</td>
+                  <td class="p-3.5 text-slate-600">Strict 1:1 two-way directory synchronization.</td>
                 </tr>
-                <tr class="hover:bg-slate-800/30">
-                  <td class="p-3 font-semibold text-amber-400">Local Only (untrack)</td>
-                  <td class="p-3">Untracked locally</td>
-                  <td class="p-3 text-amber-300">Cloud state left intact</td>
-                  <td class="p-3 text-slate-400">Temporary disconnect of specific files or folders.</td>
+                <tr class="hover:bg-slate-50">
+                  <td class="p-3.5 font-bold text-amber-700">Local Only (untrack)</td>
+                  <td class="p-3.5">Untracked locally</td>
+                  <td class="p-3.5 font-semibold text-amber-800">Cloud state left intact</td>
+                  <td class="p-3.5 text-slate-600">Temporary disconnect of specific files or folders.</td>
                 </tr>
               </tbody>
             </table>
           </div>
-        </div>
+        </article>
 
         <!-- Feature 6: Real-Time Logs -->
-        <div id="feature-logs" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <article id="feature-logs" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-sky-500/10 text-sky-400">
-              <i data-lucide="file-text" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-sky-50 text-sky-700 border border-sky-200">
+              <i data-lucide="file-text" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">6. Real-Time Streaming Logs</h3>
-              <p class="text-xs text-slate-400">Full transparency into engine operations, network reconnects, and chunk uploads.</p>
+              <h3 class="text-xl font-bold text-slate-900">6. Real-Time Streaming Logs</h3>
+              <p class="text-xs text-slate-500 font-medium">Full transparency into engine operations, network reconnects, and chunk uploads.</p>
             </div>
           </div>
 
-          <p class="text-sm text-slate-300 leading-relaxed">
-            The <strong>Logs</strong> tab streams live traces directly from the Rust `sync-agent` background process. Features include:
+          <p class="text-sm text-slate-600 leading-relaxed">
+            The <strong>Logs</strong> tab streams live traces directly from the Rust `sync-agent` background process:
           </p>
 
-          <ul class="list-disc list-inside text-xs text-slate-300 space-y-2 pl-2">
-            <li><strong>Level Filtering:</strong> Toggle between <span class="text-slate-400 font-semibold">ALL</span>, <span class="text-brand-400 font-semibold">INFO</span>, <span class="text-amber-400 font-semibold">WARN</span>, <span class="text-rose-400 font-semibold">ERROR</span>, and <span class="text-purple-400 font-semibold">DEBUG</span>.</li>
+          <ul class="list-disc list-inside text-xs text-slate-700 space-y-2 pl-2 font-medium">
+            <li><strong>Level Filtering:</strong> Toggle between <span class="text-slate-800 font-bold">ALL</span>, <span class="text-brand-700 font-bold">INFO</span>, <span class="text-amber-700 font-bold">WARN</span>, <span class="text-rose-700 font-bold">ERROR</span>, and <span class="text-purple-700 font-bold">DEBUG</span>.</li>
             <li><strong>ANSI Clean:</strong> Strips console color escapes for crystal-clear readability.</li>
             <li><strong>Process Diagnostics:</strong> Displays the active process PID, web port (e.g. 8484), and log file location.</li>
           </ul>
-        </div>
+        </article>
 
-        <!-- Feature 7: Hardware Companion -->
-        <div id="feature-hardware" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-6">
+        <!-- Feature 7: Desktop Integration -->
+        <article id="feature-desktop" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
           <div class="flex items-center space-x-3">
-            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
-              <i data-lucide="usb" class="w-6 h-6"></i>
+            <div class="p-2.5 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200">
+              <i data-lucide="app-window" class="w-6 h-6" aria-hidden="true"></i>
             </div>
             <div>
-              <h3 class="text-xl font-bold text-white">7. Autonomous USB-C Smart Drive Integration</h3>
-              <p class="text-xs text-slate-400">Pair seamlessly with standalone hardware dongles.</p>
+              <h3 class="text-xl font-bold text-slate-900">7. Seamless Windows & Linux Desktop Experience</h3>
+              <p class="text-xs text-slate-500 font-medium">Built for background operation on modern workstations.</p>
             </div>
           </div>
 
-          <p class="text-sm text-slate-300 leading-relaxed">
-            When the physical `rSync` companion hardware (Rockchip RV1103 / RV1106 powered USB-C drive) is plugged into your PC or mobile phone, unicSync automatically senses the CDC-NCM reverse-tethered network interface at <code class="text-brand-300 font-mono text-xs">192.168.7.2:8080</code>.
+          <p class="text-sm text-slate-600 leading-relaxed">
+            unicSync is optimized for daily desktop usage:
           </p>
-          <p class="text-sm text-slate-300 leading-relaxed">
-            You can seamlessly toggle the active target in the top-right engine switcher between 💻 <strong>Local PC Drive</strong> and 💾 <strong>USB-C Smart Drive</strong>.
-          </p>
-        </div>
+          <ul class="list-disc list-inside text-xs text-slate-700 space-y-2 pl-2 font-medium">
+            <li><strong>Background Persistence:</strong> The Rust daemon continues running in detached mode even when the window is closed.</li>
+            <li><strong>Cross-Platform Parity:</strong> Identical dark slate theme, shortcuts, and window dimensions (1280x720) across both Ubuntu/Debian/Arch Linux and Windows 10/11.</li>
+            <li><strong>Zero Resource Bloat:</strong> Lightweight Flutter frontend consuming minimal RAM, backed by a native Rust daemon optimized with fat LTO and memory-bounded streaming.</li>
+          </ul>
+        </article>
       </section>
 
       <!-- Section: FAQ & Troubleshooting -->
-      <section id="faq" class="space-y-6">
-        <div class="border-b border-slate-800 pb-4">
-          <h2 class="text-2xl font-bold text-white flex items-center space-x-2">
-            <i data-lucide="help-circle" class="w-6 h-6 text-amber-400"></i>
+      <section id="faq" class="space-y-6" aria-labelledby="faq-title">
+        <div class="border-b border-slate-200 pb-3">
+          <h2 id="faq-title" class="text-2xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="help-circle" class="w-6 h-6 text-brand-600" aria-hidden="true"></i>
             <span>Frequently Asked Questions & Troubleshooting</span>
           </h2>
-          <p class="text-slate-400 text-sm mt-1">Common answers and operational best practices.</p>
+          <p class="text-slate-600 text-sm mt-1">Common answers and operational best practices.</p>
         </div>
 
         <div class="space-y-4">
-          <details class="glass-panel p-5 rounded-2xl border border-slate-800 group">
-            <summary class="font-bold text-white cursor-pointer list-none flex items-center justify-between">
-              <span>What happens if the app is closed while a transfer is in progress?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
+          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
+              <span>What happens if the app window is closed while a transfer is in progress?</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
             </summary>
-            <p class="mt-3 text-xs text-slate-300 leading-relaxed">
-              Nothing stops! The Flutter UI is just a presentation layer. The Rust `sync-agent` runs as a detached background daemon. Your upload will continue uninterrupted in the background. Reopening unicSync immediately reconnects to the live daemon.
+            <p class="mt-3 text-xs text-slate-600 leading-relaxed">
+              Nothing stops! The Flutter UI is a presentation layer. The Rust `sync-agent` runs as a detached background daemon on localhost. Your upload will continue uninterrupted in the background. Reopening unicSync immediately reconnects to the live daemon.
             </p>
           </details>
 
-          <details class="glass-panel p-5 rounded-2xl border border-slate-800 group">
-            <summary class="font-bold text-white cursor-pointer list-none flex items-center justify-between">
-              <span>What happens if power is cut or the USB drive is unplugged mid-upload?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
+          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
+              <span>What happens if power is cut or the computer restarts mid-upload?</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
             </summary>
-            <p class="mt-3 text-xs text-slate-300 leading-relaxed">
-              The engine is 100% crash-resilient. Every chunk completion is atomically committed to SQLite in WAL mode. Upon reconnection or power restoration, the engine verifies existing cloud chunks and resumes from the exact byte boundary—never restarting from 0.
+            <p class="mt-3 text-xs text-slate-600 leading-relaxed">
+              The engine is 100% crash-resilient. Every chunk completion is atomically committed to SQLite in WAL mode. Upon relaunching, the engine verifies existing cloud chunks and resumes from the exact byte boundary—never restarting from 0.
             </p>
           </details>
 
-          <details class="glass-panel p-5 rounded-2xl border border-slate-800 group">
-            <summary class="font-bold text-white cursor-pointer list-none flex items-center justify-between">
+          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
               <span>Where are the local database and log files stored?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
             </summary>
-            <div class="mt-3 text-xs text-slate-300 leading-relaxed space-y-1">
-              <div><strong>Linux:</strong> <code class="text-brand-300 font-mono">~/.local/share/com.rsync.unic_sync/</code></div>
-              <div><strong>Windows:</strong> <code class="text-brand-300 font-mono">%APPDATA%\com.rsync.unic_sync\</code></div>
-              <div><strong>macOS:</strong> <code class="text-brand-300 font-mono">~/Library/Application Support/com.rsync.unic_sync/</code></div>
+            <div class="mt-3 text-xs text-slate-600 leading-relaxed space-y-1.5 font-medium">
+              <div><strong>Linux:</strong> <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-mono text-xs border border-slate-200">~/.local/share/com.rsync.unic_sync/</code></div>
+              <div><strong>Windows:</strong> <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-mono text-xs border border-slate-200">%APPDATA%\com.rsync.unic_sync\</code></div>
             </div>
           </details>
 
-          <details class="glass-panel p-5 rounded-2xl border border-slate-800 group">
-            <summary class="font-bold text-white cursor-pointer list-none flex items-center justify-between">
+          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
               <span>How do I restart or stop the background engine?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
             </summary>
-            <p class="mt-3 text-xs text-slate-300 leading-relaxed">
+            <p class="mt-3 text-xs text-slate-600 leading-relaxed">
               Go to the <strong>Settings</strong> screen in the app and click the <strong>Stop Engine</strong> or <strong>Restart Engine</strong> buttons. You can also change the watched folder directly from Settings.
             </p>
           </details>
@@ -694,16 +697,16 @@
       </section>
 
       <!-- Section: License & Community -->
-      <section id="license" class="glass-panel p-8 rounded-3xl border border-slate-800 space-y-4">
-        <h3 class="text-xl font-bold text-white flex items-center space-x-2">
-          <i data-lucide="scale" class="w-5 h-5 text-brand-400"></i>
+      <section id="license" class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4" aria-labelledby="license-title">
+        <h3 id="license-title" class="text-xl font-bold text-slate-900 flex items-center space-x-2">
+          <i data-lucide="scale" class="w-5 h-5 text-brand-600" aria-hidden="true"></i>
           <span>Open Source License & Community</span>
         </h3>
-        <p class="text-xs text-slate-300 leading-relaxed">
-          <strong>unicSync</strong> is released under the <a href="https://github.com/example/unicSync/blob/master/LICENSE.md" class="text-brand-400 hover:underline">Apache License 2.0</a>. It is free and open-source software built for edge developers, photographers, dashcam owners, and privacy advocates.
+        <p class="text-xs text-slate-600 leading-relaxed">
+          <strong>unicSync</strong> is released under the <a href="https://github.com/example/unicSync/blob/master/LICENSE.md" class="text-brand-700 font-bold hover:underline">Apache License 2.0</a>. It is free and open-source software built for developers, creators, and privacy advocates.
         </p>
-        <p class="text-xs text-slate-400">
-          Please review our <a href="https://github.com/example/unicSync/blob/master/CODE_OF_CONDUCT.md" class="text-brand-400 hover:underline">Code of Conduct</a> when participating in discussions or submitting pull requests.
+        <p class="text-xs text-slate-600">
+          Please review our <a href="https://github.com/example/unicSync/blob/master/CODE_OF_CONDUCT.md" class="text-brand-700 font-bold hover:underline">Code of Conduct</a> when participating in discussions or submitting pull requests.
         </p>
       </section>
 
@@ -711,15 +714,15 @@
   </div>
 
   <!-- Footer -->
-  <footer class="glass-panel border-t border-slate-800 mt-16 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8" role="contentinfo">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
       <div class="flex items-center space-x-2">
-        <span class="font-semibold text-slate-200">unicSync</span>
+        <span class="font-bold text-slate-800">unicSync</span>
         <span>•</span>
-        <span>Cross-Platform Flutter Companion for rSync</span>
+        <span>Standalone Desktop Cloud Sync for Windows & Linux</span>
       </div>
       <div>
-        Built with ❤️ for Edge & Cloud Storage Freedom
+        Built with ❤️ for Cloud Storage Freedom
       </div>
     </div>
   </footer>

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/api/sync_api_client.dart';
@@ -42,13 +43,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Future<void> _loadDashboardData() async {
     setState(() => _isLoading = true);
-    final server = await widget.client.autoDetectServer();
+    await widget.client.autoDetectServer();
     try {
       final status = await widget.client.getStatus();
       final files = await widget.client.getFiles();
       if (mounted) {
         setState(() {
-          _activeServer = server.contains('192.168.7.2') ? 'rSync USB-C Smart Drive' : 'Local Linux Engine (Desktop)';
+          _activeServer = Platform.isWindows ? 'Windows Desktop Engine' : 'Linux Desktop Engine';
           _status = status;
           _files = files;
           _isLoading = false;

@@ -29,7 +29,7 @@ class DiscoveredEngine {
   });
 }
 
-/// Client to communicate with the rSync sync-agent daemon on desktop or USB Smart Drive.
+/// Client to communicate with the local rSync sync-agent daemon on desktop.
 class SyncApiClient {
   final Dio _dio;
   String baseUrl;
@@ -48,7 +48,7 @@ class SyncApiClient {
           headers: {'Content-Type': 'application/json'},
         ));
 
-  /// Switches active communication target to a different engine (e.g. Local PC or USB Drive).
+  /// Switches active communication target to a different engine port.
   void setBaseUrl(String newUrl, {EngineTarget? target}) {
     baseUrl = newUrl;
     _dio.options.baseUrl = newUrl;
@@ -90,13 +90,12 @@ class SyncApiClient {
     return false;
   }
 
-  /// Probes for active engines (Local PC, USB Drive on host, Smart Drive hardware).
+  /// Probes for active desktop engines on localhost.
   /// Only returns engines that are currently ONLINE and available.
   Future<List<DiscoveredEngine>> detectAvailableEngines() async {
     final candidates = <Map<String, dynamic>>[
-      {'target': EngineTarget.localPc, 'name': '💻 Local PC Drive', 'url': 'http://127.0.0.1:8484'},
-      {'target': EngineTarget.usbDrive, 'name': '💾 USB Pendrive (Host)', 'url': 'http://127.0.0.1:8485'},
-      {'target': EngineTarget.smartDrive, 'name': '⚡ USB-C Smart Drive', 'url': 'http://192.168.7.2:8484'},
+      {'target': EngineTarget.localPc, 'name': '💻 Desktop Engine', 'url': 'http://127.0.0.1:8484'},
+      {'target': EngineTarget.localPc, 'name': '💻 Desktop Engine (Alt)', 'url': 'http://127.0.0.1:8080'},
     ];
 
     // 1. Read desktop engine config storage place if available
@@ -208,9 +207,9 @@ class SyncApiClient {
     return onlineEngines;
   }
 
-  /// Auto-detect whether sync-agent is on localhost (8484), secondary USB engine (8485), or USB-C Smart Drive (192.168.7.2).
+  /// Auto-detect whether sync-agent is on localhost port 8484 or fallback port 8080.
   Future<String> autoDetectServer() async {
-    for (final host in ['http://127.0.0.1:8484', 'http://127.0.0.1:8485', 'http://192.168.7.2:8484']) {
+    for (final host in ['http://127.0.0.1:8484', 'http://127.0.0.1:8080']) {
       try {
         final res = await Dio().get('$host/api/status', options: Options(receiveTimeout: const Duration(milliseconds: 800)));
         if (res.statusCode == 200) {

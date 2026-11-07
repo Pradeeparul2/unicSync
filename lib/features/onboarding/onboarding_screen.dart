@@ -166,7 +166,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Text('Target Folder to Watch & Sync', style: GoogleFonts.outfit(fontSize: 16, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
                 Text(
-                  'Select any local directory, external SSD, or USB thumb drive. All files added here will be automatically synced and tiered to your cloud storage.',
+                  'Select any local folder on your computer. All files added here will be automatically synced and tiered to your cloud storage.',
                   style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
                 ),
                 const SizedBox(height: 14),
@@ -179,7 +179,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         controller: _pathController,
                         style: const TextStyle(fontFamily: 'monospace', fontSize: 14),
                         decoration: InputDecoration(
-                          hintText: '/home/user/CloudDrive or /media/usb',
+                          hintText: Platform.isWindows ? r'C:\Users\username\CloudDrive' : '/home/user/CloudDrive',
                           filled: true,
                           fillColor: const Color(0xFF0F172A),
                           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),

@@ -225,11 +225,7 @@ class _MainShellState extends State<MainShell> {
       SettingsScreen(client: _client),
     ];
 
-    final currentTargetName = switch (_client.currentTarget) {
-      EngineTarget.localPc => '💻 Local PC Engine',
-      EngineTarget.usbDrive => '💾 USB Pendrive Engine',
-      EngineTarget.smartDrive => '⚡ USB-C Smart Drive',
-    };
+    const currentTargetName = '💻 Desktop Engine';
 
     return Scaffold(
       body: Row(
@@ -392,45 +388,43 @@ class _MainShellState extends State<MainShell> {
                             borderRadius: BorderRadius.circular(6),
                             border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.4)),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
                                 currentTargetName,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
                                   color: Color(0xFF38BDF8),
                                 ),
                               ),
-                              const SizedBox(width: 4),
-                              const Icon(Icons.arrow_drop_down, size: 16, color: Color(0xFF38BDF8)),
+                              SizedBox(width: 4),
+                              Icon(Icons.arrow_drop_down, size: 16, color: Color(0xFF38BDF8)),
                             ],
                           ),
                         ),
                       ),
-                      if (_engines.any((e) => e.target != EngineTarget.localPc)) ...[
-                        const SizedBox(width: 8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                          decoration: BoxDecoration(
-                            color: Colors.greenAccent.withValues(alpha: 0.15),
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.4)),
-                          ),
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.usb, size: 12, color: Colors.greenAccent),
-                              SizedBox(width: 4),
-                              Text(
-                                'USB Pendrive Detected',
-                                style: TextStyle(fontSize: 10, color: Colors.greenAccent, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                        decoration: BoxDecoration(
+                          color: Colors.greenAccent.withValues(alpha: 0.15),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.4)),
                         ),
-                      ],
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.check_circle, size: 12, color: Colors.greenAccent),
+                            SizedBox(width: 4),
+                            Text(
+                              'Daemon Active',
+                              style: TextStyle(fontSize: 10, color: Colors.greenAccent, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
                       const Spacer(),
                       // Active Endpoint Pill
                       Container(
@@ -455,7 +449,7 @@ class _MainShellState extends State<MainShell> {
                       const SizedBox(width: 8),
                       IconButton(
                         icon: const Icon(Icons.refresh, size: 16, color: Colors.grey),
-                        tooltip: 'Scan for Connected USB Smart Drives',
+                        tooltip: 'Reconnect to Local Engine',
                         onPressed: _probeEngines,
                       ),
                     ],

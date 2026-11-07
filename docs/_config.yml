@@ -1,6 +1,6 @@
 theme: jekyll-theme-primer
-title: unicSync — User Guide & Documentation
-description: Cross-platform Flutter companion application for the rSync edge engine and autonomous USB-C smart drive.
+title: unicSync — Standalone Desktop Cloud Sync (Windows & Linux)
+description: Standalone desktop cloud sync application for Windows and Linux powered by the rSync engine.
 markdown: GFM
 plugins:
   - jekyll-relative-links
