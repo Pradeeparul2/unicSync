@@ -108,5 +108,7 @@ unicSync/
 
 ---
 
-## 📄 License
-Licensed under Apache 2.0. Built with ❤️ by the rSync team.
+## 📄 License & Community
+* Licensed under the [Apache License 2.0](LICENSE.md).
+* Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+* Built with ❤️ by the rSync team.
