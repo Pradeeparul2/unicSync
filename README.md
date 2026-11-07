@@ -3,8 +3,11 @@
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)](https://flutter.dev)
 [![Platforms](https://img.shields.io/badge/Platforms-macOS%20|%20Windows%20|%20Linux%20|%20Android%20|%20iOS-4CAF50)]()
 [![Rust Backend](https://img.shields.io/badge/Powered%20By-rSync%20Engine-DEA584?logo=rust)](../rSync)
+[![Documentation](https://img.shields.io/badge/Docs-User%20Guide-38BDF8?logo=githubpages)](docs/index.html)
 
 **`unicSync`** is the official cross-platform Flutter companion application for the **Rust Edge Sync Engine (`rSync`)** and the **Autonomous USB-C Smart Drive**. 
+
+👉 **[Read the Full User Guide & Documentation (GitHub Pages)](docs/index.html)**
 
 It provides an intuitive, high-performance visual dashboard that turns ordinary thumb drives and local directories into an **Infinite Cloud Drive** powered by AWS S3, Google Drive, or WebDAV.
 

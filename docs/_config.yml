@@ -1,0 +1,9 @@
+theme: jekyll-theme-primer
+title: unicSync — User Guide & Documentation
+description: Cross-platform Flutter companion application for the rSync edge engine and autonomous USB-C smart drive.
+markdown: GFM
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
