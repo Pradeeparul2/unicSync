@@ -1,9 +1,12 @@
 [Desktop Entry]
 Name=unicSync
+GenericName=Cloud Sync Client
 Comment=Standalone desktop cloud sync application powered by the uSync engine
-Exec=unic_sync
-Icon=unicsync_icon_256
+Exec=unic_sync %U
+Icon=com.rsync.unic_sync
 Terminal=false
 Type=Application
 Categories=Utility;Network;FileTransfer;
 StartupNotify=true
+StartupWMClass=com.rsync.unic_sync
+Keywords=sync;cloud;backup;s3;gdrive;webdav;

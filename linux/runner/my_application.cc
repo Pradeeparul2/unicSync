@@ -19,6 +19,75 @@ static void first_frame_cb(MyApplication* self, FlView* view) {
   gtk_widget_show(gtk_widget_get_toplevel(GTK_WIDGET(view)));
 }
 
+// Sets window and application icons with multi-resolution fallbacks
+static void setup_window_icons(GtkWindow* window) {
+  // 1. Tell GTK to use the icon theme by ID first
+  gtk_window_set_default_icon_name(APPLICATION_ID);
+  gtk_window_set_icon_name(window, APPLICATION_ID);
+
+  // 2. Load bundled pixbufs at multiple resolutions (256, 128, 64) for X11 & Wayland compositors
+  GList* icon_list = NULL;
+  g_autofree gchar* exe_path = g_file_read_link("/proc/self/exe", NULL);
+  if (exe_path != NULL) {
+    g_autofree gchar* exe_dir = g_path_get_dirname(exe_path);
+    const gchar* relative_roots[] = {
+      "data/flutter_assets/assets/images",
+      "../bundle/data/flutter_assets/assets/images",
+      "../../../../assets/images",
+      NULL
+    };
+    const gchar* icon_sizes[] = {
+      "unicsync_icon_256.png",
+      "unicsync_icon_128.png",
+      "unicsync_icon_64.png",
+      NULL
+    };
+
+    for (int r = 0; relative_roots[r] != NULL; r++) {
+      g_autofree gchar* test_dir = g_build_filename(exe_dir, relative_roots[r], NULL);
+      g_autofree gchar* test_file = g_build_filename(test_dir, "unicsync_icon_256.png", NULL);
+      if (g_file_test(test_file, G_FILE_TEST_EXISTS)) {
+        for (int s = 0; icon_sizes[s] != NULL; s++) {
+          g_autofree gchar* path = g_build_filename(test_dir, icon_sizes[s], NULL);
+          GError* error = NULL;
+          GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(path, &error);
+          if (pixbuf != NULL) {
+            icon_list = g_list_append(icon_list, pixbuf);
+          } else if (error != NULL) {
+            g_clear_error(&error);
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  // 3. Fallback to installed system/user icon locations if bundle icons not loaded
+  if (icon_list == NULL) {
+    const gchar* fallback_paths[] = {
+      "/usr/share/icons/hicolor/256x256/apps/com.rsync.unic_sync.png",
+      "/usr/share/icons/hicolor/256x256/apps/unicsync.png",
+      "/usr/share/pixmaps/unicsync.png",
+      NULL
+    };
+    for (int i = 0; fallback_paths[i] != NULL; i++) {
+      if (g_file_test(fallback_paths[i], G_FILE_TEST_EXISTS)) {
+        GdkPixbuf* pixbuf = gdk_pixbuf_new_from_file(fallback_paths[i], NULL);
+        if (pixbuf != NULL) {
+          icon_list = g_list_append(icon_list, pixbuf);
+          break;
+        }
+      }
+    }
+  }
+
+  if (icon_list != NULL) {
+    gtk_window_set_icon_list(window, icon_list);
+    gtk_window_set_default_icon_list(icon_list);
+    g_list_free_full(icon_list, g_object_unref);
+  }
+}
+
 // Implements GApplication::activate.
 static void my_application_activate(GApplication* application) {
   MyApplication* self = MY_APPLICATION(application);
@@ -52,16 +121,8 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "unicSync");
   }
 
-  // Set the window icon from bundled assets
-  g_autofree gchar* exe_path = g_file_read_link("/proc/self/exe", NULL);
-  if (exe_path != NULL) {
-    g_autofree gchar* exe_dir = g_path_get_dirname(exe_path);
-    g_autofree gchar* icon_path = g_build_filename(
-        exe_dir, "data", "flutter_assets", "assets", "images", "unicsync_icon_256.png", NULL);
-    if (g_file_test(icon_path, G_FILE_TEST_EXISTS)) {
-      gtk_window_set_icon_from_file(window, icon_path, NULL);
-    }
-  }
+  // Set the window icon with multi-resolution support
+  setup_window_icons(window);
 
   gtk_window_set_default_size(window, 1280, 720);
 
@@ -147,6 +208,9 @@ static void my_application_class_init(MyApplicationClass* klass) {
 static void my_application_init(MyApplication* self) {}
 
 MyApplication* my_application_new() {
+  // Set the human-readable application name for desktop environments
+  g_set_application_name("unicSync");
+
   // Set the program name to the application ID, which helps various systems
   // like GTK and desktop environments map this running application to its
   // corresponding .desktop file. This ensures better integration by allowing

@@ -37,28 +37,33 @@ fi
 # 2. Symlink to /usr/bin/unic_sync
 ln -sf "/opt/unicsync/unic_sync" "$DEB_DIR/usr/bin/unic_sync"
 
-# 3. Application launcher icon
+# 3. Application launcher icon (multi-resolution & dual-naming)
+cp "$PROJECT_ROOT/assets/images/unicsync_icon_256.png" "$DEB_DIR/usr/share/icons/hicolor/256x256/apps/com.rsync.unic_sync.png"
 cp "$PROJECT_ROOT/assets/images/unicsync_icon_256.png" "$DEB_DIR/usr/share/icons/hicolor/256x256/apps/unicsync.png"
+cp "$PROJECT_ROOT/assets/images/unicsync_icon_128.png" "$DEB_DIR/usr/share/icons/hicolor/128x128/apps/com.rsync.unic_sync.png"
 cp "$PROJECT_ROOT/assets/images/unicsync_icon_128.png" "$DEB_DIR/usr/share/icons/hicolor/128x128/apps/unicsync.png"
+cp "$PROJECT_ROOT/assets/images/unicsync_icon_64.png" "$DEB_DIR/usr/share/icons/hicolor/64x64/apps/com.rsync.unic_sync.png"
 cp "$PROJECT_ROOT/assets/images/unicsync_icon_64.png" "$DEB_DIR/usr/share/icons/hicolor/64x64/apps/unicsync.png"
+cp "$PROJECT_ROOT/assets/images/unicsync_icon_256.png" "$DEB_DIR/usr/share/pixmaps/com.rsync.unic_sync.png"
 cp "$PROJECT_ROOT/assets/images/unicsync_icon_256.png" "$DEB_DIR/usr/share/pixmaps/unicsync.png"
 
-# 4. Standard XDG Desktop Entry
-cat << 'EOF' > "$DEB_DIR/usr/share/applications/unicsync.desktop"
+# 4. Standard XDG Desktop Entry matching Wayland app_id and GtkApplication ID
+cat << 'EOF' > "$DEB_DIR/usr/share/applications/com.rsync.unic_sync.desktop"
 [Desktop Entry]
 Name=unicSync
 GenericName=Cloud Sync Client
 Comment=Standalone desktop cloud sync application powered by the uSync engine
 Exec=/opt/unicsync/unic_sync %U
-Icon=unicsync
+Icon=com.rsync.unic_sync
 Terminal=false
 Type=Application
 Categories=Utility;Network;FileTransfer;
 StartupNotify=true
-StartupWMClass=unic_sync
+StartupWMClass=com.rsync.unic_sync
 Keywords=sync;cloud;backup;s3;gdrive;webdav;
 EOF
-chmod 644 "$DEB_DIR/usr/share/applications/unicsync.desktop"
+chmod 644 "$DEB_DIR/usr/share/applications/com.rsync.unic_sync.desktop"
+ln -sf "com.rsync.unic_sync.desktop" "$DEB_DIR/usr/share/applications/unicsync.desktop"
 
 # 5. Debian control file
 cat << EOF > "$DEB_DIR/DEBIAN/control"
