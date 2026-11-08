@@ -49,3 +49,4 @@ macos/Flutter/ephemeral/
 assets/images/*jpg
 *.tar.gz
 *.zip
+*.deb
