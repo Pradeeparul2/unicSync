@@ -279,7 +279,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  _buildDiagRow('Engine Version', 'uSync v1.0.0 (Rust 2021)'),
+                  _buildDiagRow('Engine Version', 'uSync v1.0.1 (Rust 2021)'),
                   const Divider(color: Color(0xFF334155)),
                   _buildDiagRow('Host Platform', Platform.isWindows ? 'Windows Desktop (x86_64)' : 'Linux Desktop (x86_64)'),
                   const Divider(color: Color(0xFF334155)),

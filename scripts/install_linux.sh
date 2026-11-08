@@ -118,8 +118,8 @@ Keywords=sync;cloud;backup;s3;gdrive;webdav;
 EOF
 chmod 644 "$APPS_DIR/com.rsync.unic_sync.desktop"
 
-# Also symlink unicsync.desktop for convenience and compatibility
-ln -sf "com.rsync.unic_sync.desktop" "$APPS_DIR/unicsync.desktop"
+# Clean up any legacy or duplicate unicsync.desktop entries to prevent dual icons in launcher
+rm -f "$APPS_DIR/unicsync.desktop" "$APPS_DIR/unicSync.desktop"
 
 # Update Linux desktop database and icon cache
 if command -v update-desktop-database > /dev/null 2>&1; then

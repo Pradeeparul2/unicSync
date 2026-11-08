@@ -63,7 +63,6 @@ StartupWMClass=com.rsync.unic_sync
 Keywords=sync;cloud;backup;s3;gdrive;webdav;
 EOF
 chmod 644 "$DEB_DIR/usr/share/applications/com.rsync.unic_sync.desktop"
-ln -sf "com.rsync.unic_sync.desktop" "$DEB_DIR/usr/share/applications/unicsync.desktop"
 
 # 5. Debian control file
 cat << EOF > "$DEB_DIR/DEBIAN/control"
@@ -85,6 +84,7 @@ EOF
 cat << 'EOF' > "$DEB_DIR/DEBIAN/postinst"
 #!/bin/sh
 set -e
+rm -f /usr/share/applications/unicsync.desktop
 if command -v update-desktop-database > /dev/null 2>&1; then
     update-desktop-database /usr/share/applications || true
 fi
