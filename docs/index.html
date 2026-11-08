@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>unicSync — Standalone Desktop Cloud Sync App (Windows & Linux)</title>
-  <meta name="description" content="The standalone desktop cloud sync application for Windows and Linux, powered by the crash-resilient rSync engine.">
+  <meta name="description" content="The standalone desktop cloud sync application for Windows and Linux, powered by the crash-resilient uSync engine.">
 
   <!-- Favicon & Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -252,7 +252,7 @@
                                        │ (http://127.0.0.1:8484)
                                        ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│             <span class="text-indigo-300 font-bold">rSync Engine Background Daemon (sync-agent / .exe)</span>              │
+│             <span class="text-indigo-300 font-bold">uSync Engine Background Daemon (sync-agent / .exe)</span>              │
 │   • Bounded 5MB Chunker (64KB buffer)   • Atomic SQLite WAL State Store     │
 │   • Zero-Knowledge AES-256-GCM Crypto   • 4-Worker Async Upload Pool        │
 │   • Real-Time Filesystem Watcher        • Jittered Exponential Backoff      │
@@ -287,7 +287,7 @@
             <div class="space-y-2 flex-1">
               <h3 class="text-lg font-bold text-slate-900">Build Release Binaries</h3>
               <p class="text-sm text-slate-600">
-                Run the release build in the `rSync` engine workspace. The Makefile compiles both the Linux (`sync-agent`) and Windows (`sync-agent.exe`) binaries and automatically copies them into `unicSync/assets/bin/`:
+                Run the release build in the `uSync` engine workspace. The Makefile compiles both the Linux (`sync-agent`) and Windows (`sync-agent.exe`) binaries and automatically copies them into `unicSync/assets/bin/`:
               </p>
               <div class="bg-slate-900 text-slate-100 p-4 rounded-xl border border-slate-800 font-mono text-xs overflow-x-auto leading-relaxed">
                 <span class="text-slate-400"># Inside rSync directory:</span><br>
@@ -385,7 +385,7 @@
           <div class="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-200">
             <h4 class="text-sm font-bold text-slate-900">4-Worker Parallel Chunk Pool</h4>
             <p class="text-xs text-slate-600 leading-relaxed">
-              `rSync` operates a bounded 4-worker upload queue. When large video files (1 GB+) are uploaded, the file is split into 5 MB chunks, and the 4 workers process parts in parallel. If network drops occur, only the interrupted 5 MB chunk is retried.
+              `uSync` operates a bounded 4-worker upload queue. When large video files (1 GB+) are uploaded, the file is split into 5 MB chunks, and the 4 workers process parts in parallel. If network drops occur, only the interrupted 5 MB chunk is retried.
             </p>
           </div>
         </article>
@@ -672,7 +672,7 @@
               <span>What is the Edge-to-Cloud Sync Device?</span>
             </h3>
             <p class="text-sm text-slate-700 leading-relaxed font-normal">
-              While <strong>unicSync</strong> currently turns your local PC folders into an infinite cloud drive, an upcoming release expands desktop orchestration to physical <strong>Edge-to-Cloud Sync Devices</strong> (portable USB cloud pendrives, vehicle/dashcam gateways, and field media hubs running the embedded Rust <code>rSync</code> engine).
+              While <strong>unicSync</strong> currently turns your local PC folders into an infinite cloud drive, an upcoming release expands desktop orchestration to physical <strong>Edge-to-Cloud Sync Devices</strong> (portable USB cloud pendrives, vehicle/dashcam gateways, and field media hubs running the embedded Rust <code>uSync</code> engine).
             </p>
           </div>
 

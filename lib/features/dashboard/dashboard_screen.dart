@@ -120,11 +120,34 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ),
                 ],
               ),
-              ElevatedButton.icon(
-                icon: const Icon(Icons.refresh, size: 16),
-                label: const Text('Refresh'),
-                style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1E293B)),
-                onPressed: _loadDashboardData,
+              Row(
+                children: [
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.sync, size: 16, color: Color(0xFF38BDF8)),
+                    label: const Text('Sync Now', style: TextStyle(color: Color(0xFF38BDF8))),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF1E293B),
+                      side: const BorderSide(color: Color(0xFF38BDF8), width: 1),
+                    ),
+                    onPressed: () async {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Triggering sync reconciliation...'),
+                          duration: Duration(seconds: 1),
+                        ),
+                      );
+                      await widget.client.triggerSync();
+                      await _loadDashboardData();
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  ElevatedButton.icon(
+                    icon: const Icon(Icons.refresh, size: 16),
+                    label: const Text('Refresh'),
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF1E293B)),
+                    onPressed: _loadDashboardData,
+                  ),
+                ],
               ),
             ],
           ),

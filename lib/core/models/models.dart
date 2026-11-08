@@ -68,7 +68,7 @@ class SyncStatusModel {
   int get totalTracked => pendingFiles + uploadingFiles + completedFiles + failedFiles;
 }
 
-/// File metadata tracked by rSync SQLite store.
+/// File metadata tracked by uSync SQLite store.
 @immutable
 class TrackedFileModel {
   final String fileId;

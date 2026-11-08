@@ -676,7 +676,7 @@ class _AddProfileDialogState extends State<_AddProfileDialog> {
                       _buildTextField(
                         controller: _webdavRootFolderController,
                         label: 'Remote Root Folder (Optional)',
-                        hint: 'e.g. /rSync_Backups',
+                        hint: 'e.g. /uSync_Backups',
                         prefixIcon: Icons.folder_outlined,
                       ),
                     ] else if (_selectedType == 'mock') ...[

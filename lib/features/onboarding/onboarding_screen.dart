@@ -72,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         if (mounted) {
           setState(() {
             _isStarting = false;
-            _errorMessage = 'Failed to start rSync engine. Check permissions or logs.';
+            _errorMessage = 'Failed to start uSync engine. Check permissions or logs.';
           });
         }
       }
@@ -80,7 +80,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       if (mounted) {
         setState(() {
           _isStarting = false;
-          _errorMessage = 'Error launching rSync engine: $e';
+          _errorMessage = 'Error launching uSync engine: $e';
         });
       }
     }
@@ -228,7 +228,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             children: [
                               SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black)),
                               SizedBox(width: 12),
-                              Text('Starting rSync Engine...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                              Text('Starting uSync Engine...', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                             ],
                           )
                         : const Text('Initialize & Launch Sync Engine', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),

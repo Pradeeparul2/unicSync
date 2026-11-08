@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Represents a single log line emitted by the rSync engine.
+/// Represents a single log line emitted by the uSync engine.
 class EngineLogEntry {
   final DateTime timestamp;
   final String level;
@@ -60,7 +60,7 @@ class EngineLogEntry {
   }
 }
 
-/// Manages installation, background execution, and lifecycle of the rSync sync-agent engine.
+/// Manages installation, background execution, and lifecycle of the uSync sync-agent engine.
 class EngineManager {
   static final EngineManager _instance = EngineManager._internal();
   factory EngineManager() => _instance;
@@ -117,18 +117,18 @@ class EngineManager {
     // 1. Check first if background sync-agent daemon is already running
     final status = await checkRunningEngine();
     if (status != null) {
-      _addLog('INFO', 'Connected to existing background rSync daemon (PID: $_pid, Directory: $_currentWatchPath)');
+      _addLog('INFO', 'Connected to existing background uSync daemon (PID: $_pid, Directory: $_currentWatchPath)');
     }
 
     // 2. Verify or extract binary (skip if daemon is already running and binary exists)
     final binaryFile = File(_binaryPath!);
     if (!binaryFile.existsSync()) {
-      _addLog('INFO', 'Installing rSync engine to application storage: $_binaryPath');
+      _addLog('INFO', 'Installing uSync engine to application storage: $_binaryPath');
       await _installBinary(binaryFile);
     } else if (status == null) {
       // Only refresh binary when engine is not actively executing
       await _installBinary(binaryFile);
-      _addLog('INFO', 'rSync engine up to date at: $_binaryPath');
+      _addLog('INFO', 'uSync engine up to date at: $_binaryPath');
     }
 
     // 3. Load saved watch path
@@ -204,13 +204,18 @@ class EngineManager {
       } catch (_) {}
     }
 
-    // 2. Fallback: check sibling rSync build
+    // 2. Fallback: check sibling uSync / rSync build
     final candidatePaths = [
       if (Platform.isWindows) ...[
+        r'..\uSync\target\release\sync-agent.exe',
+        r'..\uSync\target\debug\sync-agent.exe',
         r'..\rSync\target\release\sync-agent.exe',
         r'..\rSync\target\debug\sync-agent.exe',
+        r'C:\uSync\target\release\sync-agent.exe',
         r'C:\rSync\target\release\sync-agent.exe',
       ] else ...[
+        '/home/pradeep/Documents/uSync/target/release/sync-agent',
+        '/home/pradeep/Documents/uSync/target/debug/sync-agent',
         '/home/pradeep/Documents/rSync/target/release/sync-agent',
         '/home/pradeep/Documents/rSync/target/debug/sync-agent',
         '/usr/local/bin/sync-agent',
@@ -265,7 +270,7 @@ class EngineManager {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('watch_path', targetPath);
 
-    _addLog('INFO', 'Starting background rSync engine on watch directory: $targetPath');
+    _addLog('INFO', 'Starting background uSync engine on watch directory: $targetPath');
     _addLog('INFO', 'State database: $_dbPath');
     _addLog('INFO', 'Profiles config directory: $_configDir');
     _addLog('INFO', 'Log file: $_logFilePath');
@@ -285,7 +290,9 @@ class EngineManager {
             '""$_binaryPath" --db "$_dbPath" watch --path "$targetPath" --web-port 8484 >> "$_logFilePath" 2>&1"',
           ],
           environment: {
+            'USYNC_CONFIG_DIR': _configDir!,
             'RSYNC_CONFIG_DIR': _configDir!,
+            'USYNC_DB_PATH': _dbPath!,
             'RSYNC_DB_PATH': _dbPath!,
           },
           mode: ProcessStartMode.detached,
@@ -306,7 +313,9 @@ class EngineManager {
             '8484',
           ],
           environment: {
+            'USYNC_CONFIG_DIR': _configDir!,
             'RSYNC_CONFIG_DIR': _configDir!,
+            'USYNC_DB_PATH': _dbPath!,
             'RSYNC_DB_PATH': _dbPath!,
           },
           mode: ProcessStartMode.detached,
@@ -321,15 +330,15 @@ class EngineManager {
           _isRunning = true;
           _startedAt = DateTime.now();
           _startLogTailing();
-          _addLog('INFO', 'rSync engine daemon active in background (PID: $_pid)');
+          _addLog('INFO', 'uSync engine daemon active in background (PID: $_pid)');
           return true;
         }
       }
 
-      _addLog('WARN', 'rSync daemon launched but did not respond to status endpoint in time.');
+      _addLog('WARN', 'uSync daemon launched but did not respond to status endpoint in time.');
       return true;
     } catch (e) {
-      _addLog('ERROR', 'Failed to launch background rSync engine process: $e');
+      _addLog('ERROR', 'Failed to launch background uSync engine process: $e');
       _isRunning = false;
       return false;
     }
@@ -337,7 +346,7 @@ class EngineManager {
 
   /// Stop the engine process gracefully via API and OS signal.
   Future<void> stop() async {
-    _addLog('INFO', 'Stopping rSync engine daemon (PID: $_pid)...');
+    _addLog('INFO', 'Stopping uSync engine daemon (PID: $_pid)...');
     _stopLogTailing();
 
     // 1. Send graceful shutdown HTTP request
@@ -372,7 +381,7 @@ class EngineManager {
 
     _isRunning = false;
     _pid = null;
-    _addLog('INFO', 'rSync engine stopped.');
+    _addLog('INFO', 'uSync engine stopped.');
   }
 
   /// Restart the engine.

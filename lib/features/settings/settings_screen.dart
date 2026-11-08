@@ -71,7 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
           // Engine Daemon Background Service Status
           _buildCard(
-            title: 'rSync Background Daemon',
+            title: 'uSync Background Daemon',
             subtitle: 'Engine runs continuously in the background even when this app is closed',
             icon: Icons.sync,
             child: Padding(
@@ -279,7 +279,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  _buildDiagRow('Engine Version', 'rSync v0.1.0 (Rust 2021)'),
+                  _buildDiagRow('Engine Version', 'uSync v0.1.0 (Rust 2021)'),
                   const Divider(color: Color(0xFF334155)),
                   _buildDiagRow('Host Platform', Platform.isWindows ? 'Windows Desktop (x86_64)' : 'Linux Desktop (x86_64)'),
                   const Divider(color: Color(0xFF334155)),

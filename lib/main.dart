@@ -125,7 +125,7 @@ class _AppBootstrapState extends State<AppBootstrap> {
             children: [
               CircularProgressIndicator(color: Color(0xFF38BDF8)),
               SizedBox(height: 16),
-              Text('Starting rSync Engine...', style: TextStyle(color: Colors.grey)),
+              Text('Starting uSync Engine...', style: TextStyle(color: Colors.grey)),
             ],
           ),
         ),

@@ -10,7 +10,7 @@ enum EngineTarget {
   smartDrive,
 }
 
-/// Metadata describing a discovered rSync engine instance.
+/// Metadata describing a discovered uSync engine instance.
 class DiscoveredEngine {
   final EngineTarget target;
   final String name;
@@ -29,7 +29,7 @@ class DiscoveredEngine {
   });
 }
 
-/// Client to communicate with the local rSync sync-agent daemon on desktop.
+/// Client to communicate with the local uSync sync-agent daemon on desktop.
 class SyncApiClient {
   final Dio _dio;
   String baseUrl;
@@ -103,6 +103,7 @@ class SyncApiClient {
     if (home != null) {
       final configPortFiles = [
         '$home/.local/share/com.rsync.unic_sync/config/engine.port',
+        '$home/.config/usync/engine.port',
         '$home/.config/rsync/engine.port',
         if (Platform.isWindows) ...[
           '$home/AppData/Roaming/com.rsync.unic_sync/config/engine.port',
@@ -151,6 +152,7 @@ class SyncApiClient {
           for (final entity in dir.listSync()) {
             if (entity is Directory) {
               final portFiles = [
+                File('${entity.path}/.usync/engine.port'),
                 File('${entity.path}/.rsync/engine.port'),
                 File('${entity.path}/config/engine.port'),
               ];
@@ -299,7 +301,7 @@ class SyncApiClient {
     return res.statusCode == 200;
   }
 
-  /// Request the background rSync daemon to shut down cleanly.
+  /// Request the background uSync daemon to shut down cleanly.
   Future<bool> shutdownDaemon() async {
     try {
       final res = await _dio.post('/api/shutdown');
@@ -326,13 +328,31 @@ class SyncApiClient {
   /// Switch active cloud destination profile.
   Future<bool> setActiveProfile(String name) async {
     final res = await _dio.post('/api/profiles/active', data: {'name': name});
-    return res.statusCode == 200;
+    if (res.statusCode == 200) {
+      await triggerSync();
+      return true;
+    }
+    return false;
   }
 
   /// Add or update a cloud storage destination profile.
   Future<bool> saveProfile(Map<String, dynamic> profileData) async {
     final res = await _dio.post('/api/profiles/save', data: profileData);
-    return res.statusCode == 200;
+    if (res.statusCode == 200) {
+      await triggerSync();
+      return true;
+    }
+    return false;
+  }
+
+  /// Triggers an immediate rescan of the watch directory and reconciliation of pending/failed files.
+  Future<bool> triggerSync() async {
+    try {
+      final res = await _dio.post('/api/sync/trigger');
+      return res.statusCode == 200;
+    } catch (_) {
+      return false;
+    }
   }
 
   /// Remove a configured cloud profile by name.

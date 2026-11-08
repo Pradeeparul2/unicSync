@@ -2,10 +2,10 @@
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)](https://flutter.dev)
 [![Platforms](https://img.shields.io/badge/Platforms-Windows%20|%20Linux-4CAF50)]()
-[![Rust Backend](https://img.shields.io/badge/Powered%20By-rSync%20Engine-DEA584?logo=rust)](../rSync)
+[![Rust Backend](https://img.shields.io/badge/Powered%20By-uSync%20Engine-DEA584?logo=rust)](../rSync)
 [![Documentation](https://img.shields.io/badge/Docs-User%20Guide-38BDF8?logo=githubpages)](docs/index.html)
 
-**`unicSync`** is a standalone, cross-platform desktop application for **Windows** and **Linux** powered by the **Rust Edge Sync Engine (`rSync`)**.
+**`unicSync`** is a standalone, cross-platform desktop application for **Windows** and **Linux** powered by the **Rust Edge Sync Engine (`uSync`)**.
 
 👉 **[Read the Full User Guide & Documentation (GitHub Pages)](docs/index.html)**
 
@@ -31,7 +31,7 @@ It provides an intuitive, high-performance visual dashboard that turns any local
 
 ## 🔮 Upcoming Feature: Edge-to-Cloud Sync Device Support
 
-While `unicSync` currently serves as the standalone desktop control center for PC-to-cloud synchronization, an upcoming release introduces native companion support for the **Edge-to-Cloud Sync Device** (portable cloud pendrives, vehicle/dashcam gateways, and field media hubs powered by the embedded `rSync` engine):
+While `unicSync` currently serves as the standalone desktop control center for PC-to-cloud synchronization, an upcoming release introduces native companion support for the **Edge-to-Cloud Sync Device** (portable cloud pendrives, vehicle/dashcam gateways, and field media hubs powered by the embedded `uSync` engine):
 
 * **🔌 Plug-and-Sync Companion Discovery**: Auto-detects connected edge hardware devices over USB, Wi-Fi, or Bluetooth Low Energy (BLE).
 * **🚀 Zero-Touch Field Offloading**: Ingest high-volume field captures (video footage, sensor logs, photography) from edge storage and stream them directly to your cloud buckets (AWS S3, Cloudflare R2, Google Drive, WebDAV) with crash-resilient multipart chunking.
@@ -73,7 +73,7 @@ unicSync/
 ├── lib/
 │   ├── main.dart                # App Entrypoint & Window Initialization
 │   ├── core/                    # Core Infrastructure
-│   │   ├── api/                 # SyncApiClient (REST communication to rSync)
+│   │   ├── api/                 # SyncApiClient (REST communication to uSync)
 │   │   ├── engine/              # EngineManager (Cross-platform process lifecycle)
 │   │   ├── models/              # FileRecord, SyncStatus, CloudProfile models
 │   │   └── theme/               # Dark Slate Design System (#0F172A)
@@ -90,7 +90,7 @@ unicSync/
 
 ### Prerequisites
 1. **Flutter SDK** (v3.22+ recommended): [Install Flutter](https://docs.flutter.dev/get-started/install)
-2. **rSync Engine**: Compiled from `../rSync` (`make build-release`)
+2. **uSync Engine**: Compiled from `../rSync` (`make build-release`)
 
 ### Running the App
 1. Clone / navigate to the repository:
@@ -115,4 +115,4 @@ unicSync/
 ## 📄 License & Community
 * Licensed under the [Apache License 2.0](LICENSE.md).
 * Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
-* Built with ❤️ by the rSync team.
+* Built with ❤️ by the uSync team.

@@ -1,7 +1,7 @@
 # Antigravity AI Project Rules: unicSync (Standalone Desktop App)
 
 ## 1. Project Context & Vision
-- **Project**: `unicSync` is a standalone, cross-platform desktop application for **Windows** and **Linux**, powered by the **Rust Edge Sync Engine (`rSync`)**.
+- **Project**: `unicSync` is a standalone, cross-platform desktop application for **Windows** and **Linux**, powered by the **Rust Edge Sync Engine (`uSync`)**.
 - **Core Role**: Acts as the centralized desktop UI control hub for synchronizing local PC folders to any cloud storage (AWS S3, Cloudflare R2, Google Drive, WebDAV), storage tiering (Local, Synced, Cloud-Only), zero-knowledge encryption vaults, and live transfer monitoring.
 - **Strict Boundary**: `unicSync` is exclusively for **standalone desktop synchronization on Windows and Linux**. Cloud edge pendrives / USB hardware companions are a separate concept and must **never** be mingled with `unicSync`.
 
