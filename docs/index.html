@@ -3,8 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>unicSync — Standalone Desktop Cloud Sync App (Windows & Linux)</title>
-  <meta name="description" content="The standalone desktop cloud sync application for Windows and Linux, powered by the crash-resilient uSync engine.">
+  <title>unicSync — Zero-Subscription BYOC Desktop Cloud Sync with Client-Side E2EE</title>
+  <meta name="description" content="unicSync is an open-source, subscription-free, privacy-first desktop cloud sync app for Linux & Windows. Bring Your Own Cloud (BYOC: AWS S3, Cloudflare R2, MinIO, WebDAV, Google Drive), client-side AES-256-GCM E2EE, no account needed, and infinite drive tiering powered by Rust.">
+  <meta name="keywords" content="BYOC cloud sync, no subscription cloud storage, zero knowledge cloud backup, E2EE sync, open source Dropbox alternative, S3 desktop sync, Cloudflare R2 desktop client, infinite drive, Linux desktop sync, Windows S3 sync, client side encryption, privacy first sync, unicSync, uSync, self-hosted cloud sync">
+  <meta name="author" content="unicSync Team">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://pradeeparul2.github.io/unicSync/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pradeeparul2.github.io/unicSync/">
+  <meta property="og:title" content="unicSync — Zero-Subscription BYOC Desktop Cloud Sync with Client-Side E2EE">
+  <meta property="og:description" content="Stop paying monthly subscriptions for cloud storage. unicSync brings BYOC freedom (S3, R2, GDrive, WebDAV), zero-knowledge E2EE, no account needed, and an infinite local drive powered by Rust.">
+  <meta property="og:image" content="https://pradeeparul2.github.io/unicSync/unicsync_logo.png">
+  <meta property="og:site_name" content="unicSync">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="unicSync — Zero-Subscription BYOC Desktop Cloud Sync with Client-Side E2EE">
+  <meta name="twitter:description" content="Stop paying monthly subscriptions for cloud storage. unicSync brings BYOC freedom (S3, R2, GDrive, WebDAV), zero-knowledge E2EE, no account needed, and an infinite local drive powered by Rust.">
+  <meta name="twitter:image" content="https://pradeeparul2.github.io/unicSync/unicsync_logo.png">
+
+  <!-- Schema.org JSON-LD for SEO & LLM Searchability -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "unicSync",
+        "operatingSystem": "Linux, Windows",
+        "applicationCategory": "UtilitiesApplication, BusinessApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Standalone desktop cloud sync application for Windows and Linux. Supports BYOC (AWS S3, Cloudflare R2, MinIO, Google Drive, WebDAV), zero-knowledge AES-256-GCM encryption, no account needed, zero subscriptions, and an infinite rolling cache drive.",
+        "softwareVersion": "1.0.0",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "featureList": [
+          "BYOC - Bring Your Own Cloud (AWS S3, Cloudflare R2, MinIO, Google Drive, WebDAV)",
+          "No Subscriptions - 100% Free and Open Source",
+          "Zero-Knowledge Client-Side AES-256-GCM End-to-End Encryption (E2EE)",
+          "No Account Needed - Direct PC to Cloud with Zero Middleman or SaaS Broker",
+          "Infinite Storage Tiering with LRU Eviction and Hydration Stubs",
+          "Crash-Resilient Rust Engine with SQLite WAL Atomic Journaling"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Why is unicSync subscription-free with no monthly fees?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "unicSync is 100% free and open-source software (Apache 2.0). Unlike Big Tech cloud providers that charge $120–$360/year for storage markups, unicSync uses the Bring Your Own Cloud (BYOC) model. You connect directly to hyper-affordable raw cloud storage like Cloudflare R2 ($0 egress fees) or Backblaze B2 (~$6/TB/mo) without paying any software subscription fees."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does BYOC (Bring Your Own Cloud) work in unicSync?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "BYOC allows you to connect any S3-compatible cloud provider (AWS S3, Cloudflare R2, MinIO, Wasabi, Backblaze B2), Google Drive, or Nextcloud/WebDAV directly to your local computer. You retain 100% ownership of your storage buckets and credentials without proprietary vendor lock-in."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is unicSync end-to-end encrypted (E2EE)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. unicSync features zero-knowledge client-side AES-256-GCM encryption with keys derived via PBKDF2-HMAC-SHA256. Files and chunks are encrypted in RAM on your local machine before being uploaded over the wire. Neither cloud providers nor anyone else can inspect your plaintext data or scrape it for AI model training."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to create an account or provide an email to use unicSync?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. unicSync requires no account creation, no email registration, and operates with zero middlemen. The app communicates directly between your computer and your cloud storage target without intermediary telemetry or SaaS servers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does unicSync compare to Dropbox, Google Drive, and OneDrive?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Traditional services lock you into recurring monthly fees, inspect or scrape unencrypted files for AI models, and enforce proprietary silos. unicSync provides zero subscription costs, client-side zero-knowledge E2EE, no account requirements, and works across multiple cloud backends while virtualizing infinite storage through local cache eviction."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- Favicon & Typography -->
   <link rel="icon" type="image/png" href="favicon.png">
@@ -49,6 +143,17 @@
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* Typography & Legibility Consistency */
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    code, kbd, pre, samp {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+    }
     /* WCAG 2.1 Focus Rings */
     *:focus-visible {
       outline: 2px solid #0284C7;
@@ -92,8 +197,10 @@
         </div>
       </div>
 
-      <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold text-slate-600" aria-label="Main Navigation">
+      <nav class="hidden md:flex items-center space-x-7 text-sm font-semibold text-slate-600" aria-label="Main Navigation">
         <a href="#about" class="hover:text-brand-600 transition-colors">Overview</a>
+        <a href="#why-unicsync" class="hover:text-brand-600 transition-colors font-bold text-brand-700">Why unicSync</a>
+        <a href="#comparison" class="hover:text-brand-600 transition-colors font-bold text-brand-700">Comparison</a>
         <a href="#features" class="hover:text-brand-600 transition-colors">Features</a>
         <a href="#quickstart" class="hover:text-brand-600 transition-colors">Quickstart</a>
         <a href="#faq" class="hover:text-brand-600 transition-colors">FAQ</a>
@@ -121,7 +228,9 @@
           <h2 class="text-xs uppercase font-extrabold text-slate-500 tracking-wider mb-2">Getting Started</h2>
           <ul class="space-y-1 text-sm font-medium">
             <li><a href="#about" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">What is unicSync?</a></li>
-            <li><a href="#install" class="block px-2.5 py-1.5 rounded-lg text-brand-700 font-bold bg-brand-50 hover:bg-brand-100 transition">Download & Install</a></li>
+            <li><a href="#why-unicsync" class="block px-2.5 py-1.5 rounded-lg text-brand-700 font-bold hover:bg-brand-50 transition flex items-center justify-between"><span>Why unicSync?</span><span class="text-[9px] bg-brand-100 text-brand-800 px-1.5 py-0.5 rounded font-extrabold">BYOC</span></a></li>
+            <li><a href="#comparison" class="block px-2.5 py-1.5 rounded-lg text-indigo-700 font-bold hover:bg-indigo-50 transition flex items-center justify-between"><span>Comparison Matrix</span><span class="text-[9px] bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded font-extrabold">VS</span></a></li>
+            <li><a href="#install" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">Download & Install</a></li>
             <li><a href="#architecture" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">System Architecture</a></li>
             <li><a href="#quickstart" class="block px-2.5 py-1.5 rounded-lg text-slate-700 hover:bg-brand-50 hover:text-brand-700 transition">Quickstart Guide</a></li>
           </ul>
@@ -163,17 +272,31 @@
       <section class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm relative overflow-hidden" aria-labelledby="hero-title">
         <div class="flex flex-col lg:flex-row items-center gap-8 justify-between">
           <div class="max-w-2xl space-y-5">
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-800 text-xs font-bold">
-              <i data-lucide="monitor" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
-              <span>v1.0.0 Production Release • Windows & Linux Desktop</span>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600" aria-hidden="true"></i>
+                <span>Zero Subscription ($0)</span>
+              </span>
+              <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-800 text-xs font-bold">
+                <i data-lucide="cloud" class="w-3.5 h-3.5 text-brand-600" aria-hidden="true"></i>
+                <span>100% BYOC</span>
+              </span>
+              <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-purple-800 text-xs font-bold">
+                <i data-lucide="lock" class="w-3.5 h-3.5 text-purple-600" aria-hidden="true"></i>
+                <span>Client E2EE (AES-256)</span>
+              </span>
+              <span class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-bold">
+                <i data-lucide="user-x" class="w-3.5 h-3.5 text-slate-600" aria-hidden="true"></i>
+                <span>No Account Needed</span>
+              </span>
             </div>
 
             <h1 id="hero-title" class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              The Standalone Desktop Hub for <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-accent-600">Universal Cloud Sync</span>.
+              Cloud Sync Reimagined: <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-accent-600">Bring Your Own Cloud</span>. Zero Subscriptions.
             </h1>
 
             <p class="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-              <strong>unicSync</strong> is a native desktop application for <strong>Windows</strong> and <strong>Linux</strong> that turns any local folder on your computer into an <strong>Infinite Cloud Drive</strong>. Powered by the crash-resilient <strong>Rust `uSync`</strong> background engine, unicSync delivers storage tiering, multi-cloud destination wizards, and zero-knowledge encrypted offload to AWS S3, Google Drive, or WebDAV.
+              Break free from proprietary $120+/year cloud subscriptions and AI privacy snooping. <strong>unicSync</strong> is a native, privacy-first desktop application for <strong>Windows</strong> and <strong>Linux</strong> that turns any local folder into an <strong>Infinite Cloud Drive</strong> powered by AWS S3, Cloudflare R2, MinIO, or WebDAV—featuring client-side <strong>AES-256-GCM Zero-Knowledge Encryption</strong> and zero middlemen.
             </p>
 
             <div class="pt-2 flex flex-wrap gap-3">
@@ -185,9 +308,9 @@
                 <i data-lucide="archive" class="w-4 h-4" aria-hidden="true"></i>
                 <span>Linux Tarball (.tar.gz)</span>
               </a>
-              <a href="#install" class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-300 flex items-center space-x-2 transition">
-                <i data-lucide="download-cloud" class="w-4 h-4 text-slate-600" aria-hidden="true"></i>
-                <span>Install Guide</span>
+              <a href="#comparison" class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-sm border border-slate-300 flex items-center space-x-2 transition">
+                <i data-lucide="scale" class="w-4 h-4 text-slate-600" aria-hidden="true"></i>
+                <span>See Comparison</span>
               </a>
             </div>
           </div>
@@ -272,6 +395,441 @@
 </pre>
           </div>
         </div>
+      </section>
+
+      <!-- Section: Why unicSync? (Marketing Pillars: BYOC, No Subscription, E2EE, No Account) -->
+      <section id="why-unicsync" class="space-y-6" aria-labelledby="why-title">
+        <div class="border-b border-slate-200 pb-3">
+          <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-800 text-xs font-bold mb-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-600" aria-hidden="true"></i>
+            <span>The Anti-SaaS Manifesto</span>
+          </div>
+          <h2 id="why-title" class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="shield-check" class="w-7 h-7 text-brand-600" aria-hidden="true"></i>
+            <span>Why unicSync? Built Different From Day One.</span>
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            Most sync utilities trap you in proprietary subscriptions, harvest your data for AI training, or demand complex terminal commands. unicSync is engineered on four non-negotiable architectural principles:
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Pillar 1: BYOC -->
+          <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:border-brand-300 transition group">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center border border-brand-200 font-bold group-hover:scale-105 transition-transform">
+              <i data-lucide="cloud" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-brand-600">Universal Sovereignty</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1">100% BYOC (Bring Your Own Cloud)</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Connect to <strong>any S3-compatible cloud provider</strong> (AWS S3, Cloudflare R2, Wasabi, Backblaze B2, MinIO) or Nextcloud (WebDAV) and Google Drive. You own your storage bucket, your API credentials, and your geographical data residency. <strong>Never suffer from proprietary vendor lock-in again.</strong>
+            </p>
+            <div class="pt-2 text-xs text-slate-500 font-mono bg-slate-50 p-3 rounded-xl border border-slate-200">
+              ✓ S3 SigV4 &bull; ✓ Cloudflare R2 ($0 Egress) &bull; ✓ Backblaze B2 &bull; ✓ WebDAV
+            </div>
+          </div>
+
+          <!-- Pillar 2: No Subscription -->
+          <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:border-emerald-300 transition group">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200 font-bold group-hover:scale-105 transition-transform">
+              <i data-lucide="credit-card" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-600">Zero Recurring Tolls</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1">Zero Subscription — 100% Free & Open Source</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Stop paying Big Tech $120 to $360 per year per user for storage markups. unicSync is <strong>free and open source under Apache 2.0</strong>. You pay raw wholesale cloud rates directly to your provider (e.g., Backblaze B2 at $6/TB/mo, or Cloudflare R2 with $0 egress fees)—bypassing the 80%+ SaaS retail markup.
+            </p>
+            <div class="pt-2 text-xs text-emerald-700 font-mono bg-emerald-50 p-3 rounded-xl border border-emerald-200">
+              ✓ $0 Software Cost &bull; ✓ No Hidden Fees &bull; ✓ Save $500–$1,000+ Every 5 Years
+            </div>
+          </div>
+
+          <!-- Pillar 3: E2EE -->
+          <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:border-purple-300 transition group">
+            <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center border border-purple-200 font-bold group-hover:scale-105 transition-transform">
+              <i data-lucide="lock" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-purple-600">Absolute Confidentiality</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1">Zero-Knowledge Client-Side E2EE</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              Your files are encrypted <strong>locally in memory</strong> with military-grade <strong>AES-256-GCM</strong> (PBKDF2-HMAC-SHA256 key derivation) <em>before</em> any byte touches the network. Cloud providers see only scrambled, opaque binary blobs. <strong>Zero risk of AI model training, data scraping, or provider snooping.</strong>
+            </p>
+            <div class="pt-2 text-xs text-purple-700 font-mono bg-purple-50 p-3 rounded-xl border border-purple-200">
+              ✓ Authenticated AES-256-GCM &bull; ✓ Client Keys in RAM &bull; ✓ AI-Scraping Proof
+            </div>
+          </div>
+
+          <!-- Pillar 4: No Account Needed -->
+          <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-sm space-y-4 hover:border-amber-300 transition group">
+            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200 font-bold group-hover:scale-105 transition-transform">
+              <i data-lucide="user-x" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-amber-600">Zero Middleman</span>
+              <h3 class="text-xl font-bold text-slate-900 mt-1">No Account Needed — Direct PC to Cloud</h3>
+            </div>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              We never ask for your email, require an account sign-up, or route your sync packets through proprietary relay servers. unicSync operates strictly as a local control plane that communicates directly between your machine and your storage endpoint. <strong>Zero tracking. Zero telemetry phoning home.</strong>
+            </p>
+            <div class="pt-2 text-xs text-amber-800 font-mono bg-amber-50 p-3 rounded-xl border border-amber-200">
+              ✓ No Email Sign-up &bull; ✓ Direct Peer-to-Bucket &bull; ✓ No Relay Intermediaries
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Section: Competitor Comparison Table -->
+      <section id="comparison" class="space-y-6" aria-labelledby="comparison-title">
+        <div class="border-b border-slate-200 pb-3">
+          <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold mb-2">
+            <i data-lucide="scale" class="w-3.5 h-3.5 text-indigo-600" aria-hidden="true"></i>
+            <span>Head-to-Head Benchmark</span>
+          </div>
+          <h2 id="comparison-title" class="text-2xl sm:text-3xl font-black text-slate-900 flex items-center space-x-2.5">
+            <i data-lucide="table-properties" class="w-7 h-7 text-indigo-600" aria-hidden="true"></i>
+            <span>How unicSync Compares to Other Apps</span>
+          </h2>
+          <p class="text-slate-600 text-sm mt-1">
+            Compare unicSync with traditional SaaS sync clients, hardware personal drives, and open-source tools:
+          </p>
+        </div>
+
+        <div class="overflow-x-auto bg-white rounded-3xl border border-slate-200 shadow-sm">
+          <table class="w-full text-left text-sm border-collapse" aria-label="Feature Comparison Matrix">
+            <thead>
+              <tr class="bg-slate-100/90 border-b border-slate-200 text-slate-800">
+                <th scope="col" class="p-4 sm:p-5 font-bold uppercase tracking-wider text-xs w-1/4">Feature / Capability</th>
+                <th scope="col" class="p-4 sm:p-5 font-extrabold uppercase tracking-wider text-xs bg-brand-50/80 text-brand-900 border-x border-brand-200/80 w-1/4">
+                  <div class="flex items-center space-x-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-brand-600 inline-block"></span>
+                    <span class="text-sm font-black">unicSync</span>
+                  </div>
+                  <span class="text-xs font-bold text-brand-700 block mt-0.5">BYOC + Rust Core</span>
+                </th>
+                <th scope="col" class="p-4 sm:p-5 font-bold uppercase tracking-wider text-xs text-slate-800 w-1/6">
+                  Big Tech SaaS<br><span class="text-xs font-medium text-slate-500 normal-case">(Dropbox / GDrive / OneDrive)</span>
+                </th>
+                <th scope="col" class="p-4 sm:p-5 font-bold uppercase tracking-wider text-xs text-slate-800 w-1/6">
+                  Hardware Drives<br><span class="text-xs font-medium text-slate-500 normal-case">(Synology BeeDrive)</span>
+                </th>
+                <th scope="col" class="p-4 sm:p-5 font-bold uppercase tracking-wider text-xs text-slate-800 w-1/6">
+                  Open Source<br><span class="text-xs font-medium text-slate-500 normal-case">(rclone CLI / Syncthing)</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-slate-700">
+              
+              <!-- Row 1: Pricing Model -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  Subscription &amp; Software Cost
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-emerald-700">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>$0 / Free Forever</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Apache 2.0 Open Source</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>$120–$360 / year</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Recurring forever</span>
+                </td>
+                <td class="p-4 sm:p-5 text-amber-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500 shrink-0"></i>
+                    <span>$150–$250 upfront</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Must buy new SSD if full</span>
+                </td>
+                <td class="p-4 sm:p-5 text-emerald-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>$0 / Free</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Open source</span>
+                </td>
+              </tr>
+
+              <!-- Row 2: BYOC Cloud Choice -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  Cloud Storage Freedom (BYOC)
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-brand-900">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Any S3, R2, B2, WebDAV, GDrive</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Zero provider lock-in</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Proprietary Lock-in</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Tied to single vendor</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>No Cloud Support</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Finite local SSD only</span>
+                </td>
+                <td class="p-4 sm:p-5 text-slate-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Multi-cloud (rclone)</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">P2P only (Syncthing)</span>
+                </td>
+              </tr>
+
+              <!-- Row 3: Account Requirement -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  Account / Middleman Needed
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-emerald-700">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>No Account Required</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Direct PC-to-cloud communication</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Mandatory Account</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Email tracking & telemetry</span>
+                </td>
+                <td class="p-4 sm:p-5 text-amber-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500 shrink-0"></i>
+                    <span>Synology Account</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Required for remote setup</span>
+                </td>
+                <td class="p-4 sm:p-5 text-emerald-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>No Account</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Decentralized</span>
+                </td>
+              </tr>
+
+              <!-- Row 4: Client E2EE -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  Client Zero-Knowledge E2EE
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-purple-700">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="lock" class="w-4 h-4 text-purple-600 shrink-0"></i>
+                    <span>Native AES-256-GCM in RAM</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Encrypted prior to upload</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>None (Server Decrypts)</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Provider holds keys</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>None / Plaintext SSD</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Vulnerable if drive stolen</span>
+                </td>
+                <td class="p-4 sm:p-5 text-amber-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500 shrink-0"></i>
+                    <span>Manual Setup Only</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Complex CLI flags</span>
+                </td>
+              </tr>
+
+              <!-- Row 5: AI Data Scraping Immunity -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  AI Model Scraping Immunity
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-emerald-700">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="shield" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>100% Protected</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Payloads are opaque ciphertext</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Vulnerable</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">ToS scans files for AI models</span>
+                </td>
+                <td class="p-4 sm:p-5 text-emerald-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Protected (Offline)</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Local storage</span>
+                </td>
+                <td class="p-4 sm:p-5 text-emerald-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Protected</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">P2P or encrypted</span>
+                </td>
+              </tr>
+
+              <!-- Row 6: Infinite Storage Tiering -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  Infinite Drive Tiering (LRU Evict)
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-brand-900">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Local / Synced / Cloud-Only</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Dataless stubs free local disk</span>
+                </td>
+                <td class="p-4 sm:p-5 text-amber-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500 shrink-0"></i>
+                    <span>Proprietary Smart Sync</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Tied to expensive tier</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Finite Capacity Ceiling</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Halts when SSD fills up</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Symmetrical Consumption</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Consumes equal disk on all PCs</span>
+                </td>
+              </tr>
+
+              <!-- Row 7: UI & Friction -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  Desktop Interface & Usability
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-brand-900">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Modern Desktop UI</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Live meters, wizards & PIN vault</span>
+                </td>
+                <td class="p-4 sm:p-5 text-slate-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Polished GUI</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Deep OS shell hooks</span>
+                </td>
+                <td class="p-4 sm:p-5 text-slate-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Polished Consumer GUI</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Simple setup</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Terminal CLI Only</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">High friction for 98% of users</span>
+                </td>
+              </tr>
+
+              <!-- Row 8: Memory & Resource Efficiency -->
+              <tr class="hover:bg-slate-50/80 transition-colors">
+                <td class="p-4 sm:p-5 font-bold text-slate-900">
+                  System Memory &amp; Footprint
+                </td>
+                <td class="p-4 sm:p-5 font-bold bg-brand-50/40 border-x border-brand-200/50 text-emerald-700">
+                  <div class="flex items-center space-x-1.5">
+                    <i data-lucide="cpu" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                    <span>Ultra-Lightweight (<15 MB)</span>
+                  </div>
+                  <span class="text-xs font-medium text-slate-600 block mt-1">Native Rust async streaming</span>
+                </td>
+                <td class="p-4 sm:p-5 text-rose-600 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="x-circle" class="w-4 h-4 text-rose-500 shrink-0"></i>
+                    <span>Heavy (250MB–600MB+)</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Electron & background bloat</span>
+                </td>
+                <td class="p-4 sm:p-5 text-slate-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <span>Moderate (~100 MB)</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Desktop host client</span>
+                </td>
+                <td class="p-4 sm:p-5 text-amber-700 font-semibold">
+                  <div class="flex items-center space-x-1">
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500 shrink-0"></i>
+                    <span>Variable (80MB–250MB+)</span>
+                  </div>
+                  <span class="text-xs text-slate-500 font-medium block mt-1">Go runtime GC spikes</span>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 5-Year TCO Savings Callout Box -->
+        <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-brand-50 border border-emerald-200 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+          <div class="space-y-2">
+            <span class="text-xs font-black uppercase tracking-wider text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full border border-emerald-300">
+              5-Year Economic Arbitrage (2 TB Storage)
+            </span>
+            <h3 class="text-xl sm:text-2xl font-black text-slate-900">
+              Save Up to $1,000+ Every 5 Years vs Big Tech SaaS
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-2xl">
+              Dropbox or Google One 2TB costs <strong>$120 to $240/year</strong> ($600–$1,200 over 5 years). Pairing <strong>unicSync ($0)</strong> with <strong>Backblaze B2 (~$12/mo for 2TB)</strong> or <strong>Cloudflare R2 ($0 egress)</strong> drastically slashes lifetime costs while giving you full client-side encryption and zero proprietary lock-in.
+            </p>
+          </div>
+          <div class="shrink-0 text-center md:text-right bg-white p-5 rounded-2xl border border-emerald-200 shadow-sm">
+            <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">Your Software Cost</div>
+            <div class="text-4xl font-black text-emerald-600 mt-0.5">$0</div>
+            <div class="text-[11px] text-slate-500 mt-1">Free &amp; Open Source Forever</div>
+          </div>
+        </div>
+
       </section>
 
       <!-- Section: Download & Installation -->
@@ -443,7 +1001,7 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">1. Real-Time Transfer Dashboard</h3>
-              <p class="text-xs text-slate-500 font-medium">Live operational telemetry and bounded worker pool monitoring.</p>
+              <p class="text-sm text-slate-500 font-medium">Live operational telemetry and bounded worker pool monitoring.</p>
             </div>
           </div>
 
@@ -474,9 +1032,9 @@
             </div>
           </div>
 
-          <div class="space-y-2 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div class="space-y-2 bg-slate-50 p-5 rounded-2xl border border-slate-200">
             <h4 class="text-sm font-bold text-slate-900">4-Worker Parallel Chunk Pool</h4>
-            <p class="text-xs text-slate-600 leading-relaxed">
+            <p class="text-sm text-slate-600 leading-relaxed">
               `uSync` operates a bounded 4-worker upload queue. When large video files (1 GB+) are uploaded, the file is split into 5 MB chunks, and the 4 workers process parts in parallel. If network drops occur, only the interrupted 5 MB chunk is retried.
             </p>
           </div>
@@ -490,7 +1048,7 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">2. Storage Tiering (LRU Cache Manager)</h3>
-              <p class="text-xs text-slate-500 font-medium">Virtualize 1 TB+ of cloud storage without exhausting your PC's local disk.</p>
+              <p class="text-sm text-slate-500 font-medium">Virtualize 1 TB+ of cloud storage without exhausting your PC's local disk.</p>
             </div>
           </div>
 
@@ -503,7 +1061,7 @@
               <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 text-xs font-bold border border-amber-200">
                 <span>💾 Local (Buffering)</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 Newly written file on local PC disk. The payload resides locally and is actively queued for cloud offload.
               </p>
             </div>
@@ -512,7 +1070,7 @@
               <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-900 text-xs font-bold border border-emerald-200">
                 <span>✅ Synced (Cached)</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 File is safely stored in the cloud and cached locally on your PC for instant zero-latency access.
               </p>
             </div>
@@ -521,7 +1079,7 @@
               <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-sky-100 text-sky-900 text-xs font-bold border border-sky-200">
                 <span>☁️ Cloud Only (Dataless Stub)</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-normal">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 The local payload was safely evicted from disk to free up PC drive space. The file name and metadata remain visible; clicking hydrate downloads it on-demand.
               </p>
             </div>
@@ -529,7 +1087,7 @@
 
           <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
             <h4 class="text-sm font-bold text-slate-900">Tiering Control Actions</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-600">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-slate-600">
               <div class="flex items-start space-x-3">
                 <i data-lucide="trash-2" class="w-4 h-4 text-amber-600 shrink-0 mt-0.5" aria-hidden="true"></i>
                 <div>
@@ -566,7 +1124,7 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">3. Multi-Cloud Destination Wizard</h3>
-              <p class="text-xs text-slate-500 font-medium">Connect to any cloud storage target without editing config files.</p>
+              <p class="text-sm text-slate-500 font-medium">Connect to any cloud storage target without editing config files.</p>
             </div>
           </div>
 
@@ -574,13 +1132,13 @@
             Configure, manage, and toggle between cloud providers directly from the UI:
           </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
             <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
               <div class="font-bold text-brand-700 flex items-center space-x-1.5">
                 <i data-lucide="server" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
                 <span>AWS S3 / MinIO / R2</span>
               </div>
-              <p class="text-slate-600">
+              <p class="text-slate-600 leading-relaxed">
                 Custom endpoint URLs, SigV4 authentication, bucket name, access key, secret key, and optional bucket subfolder prefix.
               </p>
             </div>
@@ -590,7 +1148,7 @@
                 <i data-lucide="folder-sync" class="w-4 h-4 text-sky-600" aria-hidden="true"></i>
                 <span>WebDAV / Nextcloud</span>
               </div>
-              <p class="text-slate-600">
+              <p class="text-slate-600 leading-relaxed">
                 Nextcloud, ownCloud, or custom WebDAV URLs with standard HTTP Basic Auth or App Passwords.
               </p>
             </div>
@@ -600,7 +1158,7 @@
                 <i data-lucide="triangle" class="w-4 h-4 text-amber-600" aria-hidden="true"></i>
                 <span>Google Drive</span>
               </div>
-              <p class="text-slate-600">
+              <p class="text-slate-600 leading-relaxed">
                 OAuth2 Bearer tokens and target Parent Folder ID utilizing Google Drive v3 Resumable Upload protocol.
               </p>
             </div>
@@ -610,7 +1168,7 @@
                 <i data-lucide="terminal" class="w-4 h-4 text-purple-600" aria-hidden="true"></i>
                 <span>Mock Sandbox</span>
               </div>
-              <p class="text-slate-600">
+              <p class="text-slate-600 leading-relaxed">
                 In-memory and local mock backend for sandbox verification, offline resilience testing, and QA.
               </p>
             </div>
@@ -625,7 +1183,7 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">4. Zero-Knowledge Encryption & PIN Protection</h3>
-              <p class="text-xs text-slate-500 font-medium">Enterprise-grade cryptographic hardening built right into the app.</p>
+              <p class="text-sm text-slate-500 font-medium">Enterprise-grade cryptographic hardening built right into the app.</p>
             </div>
           </div>
 
@@ -635,7 +1193,7 @@
                 <i data-lucide="key" class="w-4 h-4 text-purple-600" aria-hidden="true"></i>
                 <span>Client-Side AES-256-GCM Encryption</span>
               </h4>
-              <p class="text-xs text-slate-600 leading-relaxed">
+              <p class="text-sm text-slate-600 leading-relaxed">
                 When enabled, every 5 MB chunk is encrypted in RAM prior to network transmission using authenticated AES-256-GCM with keys derived via PBKDF2-HMAC-SHA256. Cloud providers only see opaque ciphertext.
               </p>
             </div>
@@ -645,7 +1203,7 @@
                 <i data-lucide="lock" class="w-4 h-4 text-brand-600" aria-hidden="true"></i>
                 <span>App PIN & Brute-Force Lockout</span>
               </h4>
-              <p class="text-xs text-slate-600 leading-relaxed">
+              <p class="text-sm text-slate-600 leading-relaxed">
                 Protect your dashboard and files from unauthorized local access. Configure a 4-to-8 digit PIN. After 5 consecutive invalid attempts, the dashboard enters an exponential security lockout.
               </p>
             </div>
@@ -660,38 +1218,38 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">5. Deletion Policies Explained</h3>
-              <p class="text-xs text-slate-500 font-medium">Choose how local file deletions are handled in the cloud.</p>
+              <p class="text-sm text-slate-500 font-medium">Choose how local file deletions are handled in the cloud.</p>
             </div>
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs border border-slate-300 rounded-xl overflow-hidden shadow-sm" aria-label="Deletion Policies Comparison">
-              <thead class="bg-slate-100 text-slate-900 uppercase font-extrabold border-b border-slate-300">
+            <table class="w-full text-left text-sm border border-slate-300 rounded-xl overflow-hidden shadow-sm" aria-label="Deletion Policies Comparison">
+              <thead class="bg-slate-100 text-slate-900 uppercase font-extrabold text-xs tracking-wider border-b border-slate-300">
                 <tr>
-                  <th scope="col" class="p-3.5">Policy Mode</th>
-                  <th scope="col" class="p-3.5">Local Action</th>
-                  <th scope="col" class="p-3.5">Cloud Action</th>
-                  <th scope="col" class="p-3.5">Best Use Case</th>
+                  <th scope="col" class="p-4">Policy Mode</th>
+                  <th scope="col" class="p-4">Local Action</th>
+                  <th scope="col" class="p-4">Cloud Action</th>
+                  <th scope="col" class="p-4">Best Use Case</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-200 text-slate-700">
                 <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-bold text-emerald-700">Safe Archive (keep_cloud)</td>
-                  <td class="p-3.5">File deleted locally</td>
-                  <td class="p-3.5 font-semibold text-emerald-800">Remote cloud file is KEPT</td>
-                  <td class="p-3.5 text-slate-600">Default. Free up PC drive space without losing cloud backups.</td>
+                  <td class="p-4 font-bold text-emerald-700">Safe Archive (keep_cloud)</td>
+                  <td class="p-4">File deleted locally</td>
+                  <td class="p-4 font-semibold text-emerald-800">Remote cloud file is KEPT</td>
+                  <td class="p-4 text-slate-600">Default. Free up PC drive space without losing cloud backups.</td>
                 </tr>
                 <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-bold text-rose-700">Strict Mirror (remove_both)</td>
-                  <td class="p-3.5">File deleted locally</td>
-                  <td class="p-3.5 font-semibold text-rose-800">Remote cloud file is DELETED</td>
-                  <td class="p-3.5 text-slate-600">Strict 1:1 two-way directory synchronization.</td>
+                  <td class="p-4 font-bold text-rose-700">Strict Mirror (remove_both)</td>
+                  <td class="p-4">File deleted locally</td>
+                  <td class="p-4 font-semibold text-rose-800">Remote cloud file is DELETED</td>
+                  <td class="p-4 text-slate-600">Strict 1:1 two-way directory synchronization.</td>
                 </tr>
                 <tr class="hover:bg-slate-50">
-                  <td class="p-3.5 font-bold text-amber-700">Local Only (untrack)</td>
-                  <td class="p-3.5">Untracked locally</td>
-                  <td class="p-3.5 font-semibold text-amber-800">Cloud state left intact</td>
-                  <td class="p-3.5 text-slate-600">Temporary disconnect of specific files or folders.</td>
+                  <td class="p-4 font-bold text-amber-700">Local Only (untrack)</td>
+                  <td class="p-4">Untracked locally</td>
+                  <td class="p-4 font-semibold text-amber-800">Cloud state left intact</td>
+                  <td class="p-4 text-slate-600">Temporary disconnect of specific files or folders.</td>
                 </tr>
               </tbody>
             </table>
@@ -706,7 +1264,7 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">6. Real-Time Streaming Logs</h3>
-              <p class="text-xs text-slate-500 font-medium">Full transparency into engine operations, network reconnects, and chunk uploads.</p>
+              <p class="text-sm text-slate-500 font-medium">Full transparency into engine operations, network reconnects, and chunk uploads.</p>
             </div>
           </div>
 
@@ -714,7 +1272,7 @@
             The <strong>Logs</strong> tab streams live traces directly from the Rust `sync-agent` background process:
           </p>
 
-          <ul class="list-disc list-inside text-xs text-slate-700 space-y-2 pl-2 font-medium">
+          <ul class="list-disc list-inside text-sm text-slate-700 space-y-2 pl-2 font-medium">
             <li><strong>Level Filtering:</strong> Toggle between <span class="text-slate-800 font-bold">ALL</span>, <span class="text-brand-700 font-bold">INFO</span>, <span class="text-amber-700 font-bold">WARN</span>, <span class="text-rose-700 font-bold">ERROR</span>, and <span class="text-purple-700 font-bold">DEBUG</span>.</li>
             <li><strong>ANSI Clean:</strong> Strips console color escapes for crystal-clear readability.</li>
             <li><strong>Process Diagnostics:</strong> Displays the active process PID, web port (e.g. 8484), and log file location.</li>
@@ -729,14 +1287,14 @@
             </div>
             <div>
               <h3 class="text-xl font-bold text-slate-900">7. Seamless Windows & Linux Desktop Experience</h3>
-              <p class="text-xs text-slate-500 font-medium">Built for background operation on modern workstations.</p>
+              <p class="text-sm text-slate-500 font-medium">Built for background operation on modern workstations.</p>
             </div>
           </div>
 
           <p class="text-sm text-slate-600 leading-relaxed">
             unicSync is optimized for daily desktop usage:
           </p>
-          <ul class="list-disc list-inside text-xs text-slate-700 space-y-2 pl-2 font-medium">
+          <ul class="list-disc list-inside text-sm text-slate-700 space-y-2 pl-2 font-medium">
             <li><strong>Background Persistence:</strong> The Rust daemon continues running in detached mode even when the window is closed.</li>
             <li><strong>Cross-Platform Parity:</strong> Identical dark slate theme, shortcuts, and window dimensions (1280x720) across both Ubuntu/Debian/Arch Linux and Windows 10/11.</li>
             <li><strong>Zero Resource Bloat:</strong> Lightweight Flutter frontend consuming minimal RAM, backed by a native Rust daemon optimized with fat LTO and memory-bounded streaming.</li>
@@ -774,7 +1332,7 @@
                 <i data-lucide="usb" class="w-4 h-4" aria-hidden="true"></i>
                 <span>Plug &amp; Sync Auto-Detection</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 Seamlessly pair companion edge hardware over USB, local Wi-Fi, or Bluetooth Low Energy (BLE). unicSync auto-discovers connected edge devices and surfaces their sync state instantly.
               </p>
             </div>
@@ -784,7 +1342,7 @@
                 <i data-lucide="upload-cloud" class="w-4 h-4" aria-hidden="true"></i>
                 <span>Zero-Touch Field Offloading</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 Automatically ingest captured media (dashcam videos, drone captures, field sensor dumps) from portable storage and stream them directly into your configured cloud buckets (AWS S3, R2, GDrive, WebDAV).
               </p>
             </div>
@@ -794,7 +1352,7 @@
                 <i data-lucide="shield-check" class="w-4 h-4" aria-hidden="true"></i>
                 <span>Shared Zero-Knowledge Vault</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 Distribute your client-side AES-256-GCM encryption passphrases and cloud credentials securely to your edge hardware companion directly from the unicSync desktop vault.
               </p>
             </div>
@@ -804,7 +1362,7 @@
                 <i data-lucide="activity" class="w-4 h-4" aria-hidden="true"></i>
                 <span>Hardware Telemetry &amp; Flash Health</span>
               </div>
-              <p class="text-xs text-slate-600 leading-relaxed font-medium">
+              <p class="text-sm text-slate-600 leading-relaxed font-normal">
                 Monitor companion battery levels, flash memory endurance, network signal, and active transfer queues directly alongside your desktop sync tasks from one centralized control plane.
               </p>
             </div>
@@ -823,43 +1381,83 @@
         </div>
 
         <div class="space-y-4">
-          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
-            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
-              <span>What happens if the app window is closed while a transfer is in progress?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group" open>
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
+              <span class="text-brand-900 font-extrabold">Why is unicSync completely subscription-free ($0)?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
             </summary>
-            <p class="mt-3 text-xs text-slate-600 leading-relaxed">
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+              unicSync is 100% free and open source software licensed under Apache 2.0. Instead of charging you an arbitrary monthly subscription markup ($10–$30/mo like Dropbox or Google One), unicSync operates on the <strong>Bring Your Own Cloud (BYOC)</strong> model. You connect directly to hyper-affordable raw cloud object storage (such as Cloudflare R2 with $0 egress fees, Backblaze B2 at ~$6/TB/mo, or Wasabi). You pay the cloud provider directly at wholesale prices and never pay a penny in software subscriptions.
+            </p>
+          </details>
+
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
+              <span class="text-slate-900 font-bold">How does Bring Your Own Cloud (BYOC) benefit me?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+              BYOC frees you from proprietary vendor lock-in. You hold the API keys and ownership of your storage bucket. If you ever want to switch from AWS to Cloudflare R2, MinIO, or your private Nextcloud WebDAV instance, you can simply change your profile inside unicSync without having your data held hostage by proprietary ecosystems.
+            </p>
+          </details>
+
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
+              <span class="text-slate-900 font-bold">How does Zero-Knowledge E2EE protect my files from AI scraping?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+              When client-side encryption is enabled in unicSync, every 5 MB chunk is encrypted in local computer RAM using authenticated AES-256-GCM before transmission. The cloud provider (whether AWS, Cloudflare, or Google Drive) only receives and stores unreadable ciphertext. They have zero cryptographic ability to scan your text, inspect your private photos, or train internal AI models on your files.
+            </p>
+          </details>
+
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
+              <span class="text-slate-900 font-bold">Do I need to create an account or provide an email address?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
+              <strong>No. Absolutely not.</strong> unicSync requires no user accounts, no passwords registered on our servers, and no email verification. The app functions as a decentralized local software client communicating directly with your designated cloud storage endpoint over HTTPS.
+            </p>
+          </details>
+
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
+              <span>What happens if the app window is closed while a transfer is in progress?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
+            </summary>
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
               Nothing stops! The Flutter UI is a presentation layer. The Rust `sync-agent` runs as a detached background daemon on localhost. Your upload will continue uninterrupted in the background. Reopening unicSync immediately reconnects to the live daemon.
             </p>
           </details>
 
-          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
-            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
               <span>What happens if power is cut or the computer restarts mid-upload?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
             </summary>
-            <p class="mt-3 text-xs text-slate-600 leading-relaxed">
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
               The engine is 100% crash-resilient. Every chunk completion is atomically committed to SQLite in WAL mode. Upon relaunching, the engine verifies existing cloud chunks and resumes from the exact byte boundary—never restarting from 0.
             </p>
           </details>
 
-          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
-            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
               <span>Where are the local database and log files stored?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
             </summary>
-            <div class="mt-3 text-xs text-slate-600 leading-relaxed space-y-1.5 font-medium">
+            <div class="mt-3 text-sm text-slate-600 leading-relaxed space-y-1.5 font-medium">
               <div><strong>Linux:</strong> <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-mono text-xs border border-slate-200">~/.local/share/com.rsync.unic_sync/</code></div>
               <div><strong>Windows:</strong> <code class="bg-slate-100 px-2 py-0.5 rounded text-slate-800 font-mono text-xs border border-slate-200">%APPDATA%\com.rsync.unic_sync\</code></div>
             </div>
           </details>
 
-          <details class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm group">
-            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm">
+          <details class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm group">
+            <summary class="font-bold text-slate-900 cursor-pointer list-none flex items-center justify-between text-sm sm:text-base">
               <span>How do I restart or stop the background engine?</span>
-              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 group-open:rotate-180 transition-transform" aria-hidden="true"></i>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-500 group-open:rotate-180 transition-transform shrink-0" aria-hidden="true"></i>
             </summary>
-            <p class="mt-3 text-xs text-slate-600 leading-relaxed">
+            <p class="mt-3 text-sm text-slate-600 leading-relaxed">
               Go to the <strong>Settings</strong> screen in the app and click the <strong>Stop Engine</strong> or <strong>Restart Engine</strong> buttons. You can also change the watched folder directly from Settings.
             </p>
           </details>
