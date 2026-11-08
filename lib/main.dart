@@ -117,15 +117,21 @@ class _AppBootstrapState extends State<AppBootstrap> {
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
-      return const Scaffold(
-        backgroundColor: Color(0xFF0F172A),
+      return Scaffold(
+        backgroundColor: const Color(0xFF0F172A),
         body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              CircularProgressIndicator(color: Color(0xFF38BDF8)),
-              SizedBox(height: 16),
-              Text('Starting uSync Engine...', style: TextStyle(color: Colors.grey)),
+              Image.asset(
+                'assets/images/unicsync_logo.png',
+                width: 80,
+                height: 80,
+              ),
+              const SizedBox(height: 24),
+              const CircularProgressIndicator(color: Color(0xFF38BDF8)),
+              const SizedBox(height: 16),
+              const Text('Starting uSync Engine...', style: TextStyle(color: Colors.grey)),
             ],
           ),
         ),
@@ -255,13 +261,21 @@ class _MainShellState extends State<MainShell> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(6),
                     decoration: BoxDecoration(
                       color: const Color(0xFF38BDF8).withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: const Color(0xFF38BDF8).withValues(alpha: 0.3)),
                     ),
-                    child: const Icon(Icons.cloud_sync, color: Color(0xFF38BDF8), size: 26),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        'assets/images/unicsync_logo.png',
+                        width: 32,
+                        height: 32,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 8),
                   Text(

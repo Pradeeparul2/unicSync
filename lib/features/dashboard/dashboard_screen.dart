@@ -96,25 +96,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
                 children: [
-                  Text('Dashboard Overview', style: GoogleFonts.outfit(fontSize: 26, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 4),
-                  Row(
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset(
+                      'assets/images/unicsync_logo.png',
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: (_status?.isOnline ?? false) ? Colors.greenAccent : Colors.amberAccent,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Target: $_activeServer • Profile: ${_status?.activeProfile ?? "default"}',
-                        style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
+                      Text('Dashboard Overview', style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: (_status?.isOnline ?? false) ? Colors.greenAccent : Colors.amberAccent,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'Target: $_activeServer • Profile: ${_status?.activeProfile ?? "default"}',
+                            style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
+                          ),
+                        ],
                       ),
                     ],
                   ),

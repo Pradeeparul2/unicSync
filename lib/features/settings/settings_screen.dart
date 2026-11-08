@@ -279,7 +279,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  _buildDiagRow('Engine Version', 'uSync v0.1.0 (Rust 2021)'),
+                  _buildDiagRow('Engine Version', 'uSync v1.0.0 (Rust 2021)'),
                   const Divider(color: Color(0xFF334155)),
                   _buildDiagRow('Host Platform', Platform.isWindows ? 'Windows Desktop (x86_64)' : 'Linux Desktop (x86_64)'),
                   const Divider(color: Color(0xFF334155)),
@@ -288,6 +288,53 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _buildDiagRow('Crash Protection', 'Active (SQLite WAL atomicity + transactional chunking)'),
                   const Divider(color: Color(0xFF334155)),
                   _buildDiagRow('Zero-Knowledge Encryption', 'AES-256-GCM + PBKDF2-HMAC-SHA256 Ready'),
+                ],
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          // About unicSync
+          _buildCard(
+            title: 'About unicSync',
+            subtitle: 'Standalone desktop cloud sync control hub for Windows & Linux',
+            icon: Icons.info_outline,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.asset(
+                      'assets/images/unicsync_logo.png',
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'unicSync Desktop',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Version 1.0.0 • Powered by uSync Edge Engine',
+                          style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
+                        ),
+                        const SizedBox(height: 4),
+                        const Text(
+                          'Universal multi-cloud synchronization with local storage tiering and zero-knowledge encryption.',
+                          style: TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
