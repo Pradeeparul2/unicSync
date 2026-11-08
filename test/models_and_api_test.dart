@@ -51,6 +51,37 @@ void main() {
       expect(file.tier, StorageTier.cloudOnly);
       expect(file.formattedSize, '50.0 MB');
     });
+
+    test('TrackedFileModel local buffer and active uploading states', () {
+      final queuedJson = {
+        'file_id': 'vid-1',
+        'relative_path': 'clip1.mp4',
+        'size_bytes': 20971520,
+        'status': 'QUEUED',
+        'storage_tier': 'LOCAL',
+        'completed_parts': 0,
+        'total_parts': 4,
+      };
+      final queuedFile = TrackedFileModel.fromJson(queuedJson);
+      expect(queuedFile.isQueued, isTrue);
+      expect(queuedFile.isUploading, isFalse);
+      expect(queuedFile.tier, StorageTier.local);
+
+      final uploadingJson = {
+        'file_id': 'vid-2',
+        'relative_path': 'clip2.mp4',
+        'size_bytes': 20971520,
+        'status': 'UPLOADING',
+        'storage_tier': 'LOCAL',
+        'completed_parts': 1,
+        'total_parts': 4,
+      };
+      final uploadingFile = TrackedFileModel.fromJson(uploadingJson);
+      expect(uploadingFile.isUploading, isTrue);
+      expect(uploadingFile.isQueued, isFalse);
+      expect(uploadingFile.completedParts, 1);
+      expect(uploadingFile.totalParts, 4);
+    });
   });
 
   group('SyncStatusModel Tests', () {

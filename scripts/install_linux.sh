@@ -131,7 +131,7 @@ fi
 
 echo ""
 echo "=================================================="
-echo "  unicSync v1.0.0 installed successfully!         "
+echo "  unicSync v1.0.1 installed successfully!         "
 echo "=================================================="
 echo "Executable: $INSTALL_DIR/unic_sync"
 echo "Command:    unic_sync (via $BIN_DIR)"

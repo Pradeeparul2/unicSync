@@ -324,7 +324,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Version 1.0.0 • Powered by uSync Edge Engine',
+                          'Version 1.0.1 • Powered by uSync Edge Engine',
                           style: TextStyle(color: Colors.grey.shade400, fontSize: 13),
                         ),
                         const SizedBox(height: 4),

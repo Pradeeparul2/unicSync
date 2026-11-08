@@ -78,6 +78,8 @@ class TrackedFileModel {
   final StorageTier tier;
   final DateTime updatedAt;
   final DateTime createdAt;
+  final int completedParts;
+  final int totalParts;
 
   const TrackedFileModel({
     required this.fileId,
@@ -87,12 +89,16 @@ class TrackedFileModel {
     required this.tier,
     required this.updatedAt,
     required this.createdAt,
+    this.completedParts = 0,
+    this.totalParts = 0,
   });
 
   factory TrackedFileModel.fromJson(Map<String, dynamic> json) {
     final rawCreated = json['created_at'];
     final rawUpdated = json['updated_at'];
     final size = json['size_bytes'] ?? json['total_size'] ?? 0;
+    final completedParts = json['completed_parts'] ?? 0;
+    final totalParts = json['total_parts'] ?? 0;
 
     return TrackedFileModel(
       fileId: json['file_id']?.toString() ?? '',
@@ -106,8 +112,15 @@ class TrackedFileModel {
       createdAt: rawCreated != null
           ? (DateTime.tryParse(rawCreated.toString()) ?? DateTime.now())
           : DateTime.now(),
+      completedParts: completedParts is num ? completedParts.toInt() : (int.tryParse(completedParts.toString()) ?? 0),
+      totalParts: totalParts is num ? totalParts.toInt() : (int.tryParse(totalParts.toString()) ?? 0),
     );
   }
+
+  bool get isUploading => status.toUpperCase() == 'UPLOADING';
+  bool get isQueued => status.toUpperCase() == 'QUEUED' || status.toUpperCase() == 'NEW';
+  bool get isCompleted => status.toUpperCase() == 'COMPLETED';
+  bool get isFailed => status.toUpperCase() == 'FAILED';
 
   String get formattedSize {
     if (totalSize < 1024) return '$totalSize B';

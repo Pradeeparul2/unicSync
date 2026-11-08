@@ -375,13 +375,18 @@ class _FilesScreenState extends State<FilesScreen> {
                               leading: Icon(_getFileIcon(file.relativePath), color: const Color(0xFF38BDF8), size: 24),
                               title: Text(file.relativePath, style: const TextStyle(fontWeight: FontWeight.w500)),
                               subtitle: Text(
-                                '${file.formattedSize} • Modified: ${_formatDate(file.updatedAt)}',
-                                style: TextStyle(color: Colors.grey.shade400, fontSize: 12),
+                                _buildFileSubtitle(file),
+                                style: TextStyle(
+                                  color: file.isUploading
+                                      ? const Color(0xFF38BDF8)
+                                      : Colors.grey.shade400,
+                                  fontSize: 12,
+                                ),
                               ),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  _buildTierBadge(file.tier),
+                                  _buildStatusBadge(file),
                                   const SizedBox(width: 12),
                                   if (file.tier == StorageTier.synced)
                                     OutlinedButton.icon(
@@ -462,12 +467,53 @@ class _FilesScreenState extends State<FilesScreen> {
     );
   }
 
-  Widget _buildTierBadge(StorageTier tier) {
+  Widget _buildStatusBadge(TrackedFileModel file) {
+    if (file.isUploading) {
+      final partInfo = file.totalParts > 0
+          ? ' (${file.completedParts + 1}/${file.totalParts})'
+          : '';
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: const Color(0xFF38BDF8).withOpacity(0.15),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xFF38BDF8).withOpacity(0.4)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              width: 10,
+              height: 10,
+              child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF38BDF8)),
+            ),
+            const SizedBox(width: 6),
+            Text(
+              '⏳ Uploading$partInfo',
+              style: const TextStyle(color: Color(0xFF38BDF8), fontSize: 11, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (file.isFailed) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.redAccent.withOpacity(0.15),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Colors.redAccent.withOpacity(0.4)),
+        ),
+        child: const Text('⚠️ Failed', style: TextStyle(color: Colors.redAccent, fontSize: 11, fontWeight: FontWeight.bold)),
+      );
+    }
+
     Color bg;
     Color fg;
     String label;
 
-    switch (tier) {
+    switch (file.tier) {
       case StorageTier.synced:
         bg = Colors.green.withOpacity(0.15);
         fg = Colors.greenAccent;
@@ -490,6 +536,25 @@ class _FilesScreenState extends State<FilesScreen> {
       decoration: BoxDecoration(color: bg, borderRadius: BorderRadius.circular(20), border: Border.all(color: fg.withOpacity(0.3))),
       child: Text(label, style: TextStyle(color: fg, fontSize: 11, fontWeight: FontWeight.bold)),
     );
+  }
+
+  String _buildFileSubtitle(TrackedFileModel file) {
+    final sizeStr = file.formattedSize;
+    if (file.isUploading) {
+      if (file.totalParts > 0) {
+        return '$sizeStr • Uploading chunk ${file.completedParts + 1} of ${file.totalParts}...';
+      }
+      return '$sizeStr • Uploading to cloud...';
+    } else if (file.isQueued) {
+      return '$sizeStr • Queued in local buffer';
+    } else if (file.tier == StorageTier.synced) {
+      return '$sizeStr • Synced to cloud';
+    } else if (file.tier == StorageTier.cloudOnly) {
+      return '$sizeStr • Stored in cloud (dataless)';
+    } else if (file.isFailed) {
+      return '$sizeStr • Upload failed (will retry)';
+    }
+    return '$sizeStr • Modified: ${_formatDate(file.updatedAt)}';
   }
 
   IconData _getFileIcon(String path) {

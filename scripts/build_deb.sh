@@ -9,7 +9,7 @@ cd "$PROJECT_ROOT"
 flutter build linux --release
 
 PKG_NAME="unicsync"
-VERSION="1.0.0"
+VERSION="1.0.1"
 ARCH="amd64"
 DEB_DIR="$PROJECT_ROOT/build/deb_package"
 BUNDLE_DIR="$PROJECT_ROOT/build/linux/x64/release/bundle"
