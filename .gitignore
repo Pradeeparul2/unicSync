@@ -47,3 +47,5 @@ windows/flutter/ephemeral/
 macos/Flutter/ephemeral/
 
 assets/images/
+*.tar.gz
+*.zip
